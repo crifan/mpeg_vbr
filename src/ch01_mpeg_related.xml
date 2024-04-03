@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+]>
+
+<chapter 
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch01_mpeg_related">
+<title>MPEG的相关知识</title>
+<abstract>想要了解如何计算VBR的MP3的播放时间之前，要了解一些和MP3相关的一些基本概念，其中主要是MPEG的相关知识和编解码的一些基础知识。</abstract>
+
+<sect1 xml:id="what_is_mpeg"><title>MPEG是啥</title>
+    <para>MPEG全名Moving Pictures Experts Group，动态图像专家组，简单说就是一个专家组，专门研究一些音视频规范的，所以才叫专家，不是我们国家的“砖家”哦。</para>
+    <para>这个专家组是在ISO/IEC（International Standards Organization/International Electrotechnical Commission,国际标准化组织/国际电工委员会）联合指导下成立的。</para>
+    <para>这个组，专门去研究出一个数字音视频的压缩相关的规范，所以最后研究出适用于不同应用环境的N多规范。</para>
+    <para>和事物发展的过程类似，研究出这么多的规范也是，不同时期，不同的版本，针对不同的应用。也是由简到繁。</para>
+    <para>并且，命名规则都是，按照阿拉伯数字从小到大的：MPEG1，MPEG2，MPEG4，MPEG-7，最新版本，好像都有MPEG-21了。</para>
+</sect1>
+
+<sect1><title>为啥没有了MPEG-3</title>
+    <para>估计有人纳闷了，中间的MPEG3咋没了呢？</para>
+    <para>是没MPEG3，当然，不是被刘谦变魔术变没了，而是由于当时设计者没有规划好，导致已经设计好的MPEG2，性能太好了，都能干本来打算让MPEG3干的活了，所以后来干脆就不去再设计MPEG3了，原定计划就取消了，也就没了MPEG3。</para>
+    <para>看来这个MPEG3，待遇貌似不比胎死腹中好多少。对于很多人误解的，以为MP3就是MPEG-3，也就错的离谱了。</para>
+    <para>关于MP3的名称来历，下面会再解释。</para>
+</sect1>
+
+<sect1><title>MPEG2.5又是啥</title>
+    <para>MPEG2.5，简单说就是出身不正，不是官方推出的规范。MPEG 2.5是针对MPEG2的一个非官方的扩展版本，支持更低的采样率。关于其更多解释，网上找到这些：MPEG声音标准提供三个独立的压缩层次：Layer I、Layer II和Layer III。用户具体选哪个Layer，可以根据自己的要求，在权衡复杂性和声音质量之后，做出自己的选择。
+    </para>
+
+    <orderedlist numeration="arabic">
+        <listitem><para>Layer I的编码器最为简单，编码器的输出数据率为384 kb/s，主要用于小型数字盒式磁带(digital compact cassette，DCC)。</para></listitem>
+        <listitem><para>Layer II的编码器的复杂程度属中等，编码器的输出数据率为256 kb/s～192 kb/s，其应用包括数字广播声音(digital broadcast audio，DBA)、数字音乐、CD-I(compact disc-interactive)和VCD(video compact disc)等。</para>
+        </listitem>
+        <listitem>
+            <para>Layer III的编码器最为复杂，编码器的输出数据率为64 kb/s，主要应用于ISDN上的声音传输。</para>
+            <para>对于Layer III：</para>
+            <orderedlist numeration="upperalpha">
+                <listitem><para>MPEG-1 Layer III支持的采样率为32,44.1,48khz,比特率支持32---320kbps</para></listitem>
+                <listitem><para>MPEG-2 Layer III支持的采样率为16,22.05,24khz,比特率支持8---160kbps。
+                Fraunhofer对此又进行扩展，将原来MPEG-2所支持的低采样率再除以2，得到： 8, 11.025, 和 12 kHz，比特率跟MPEG-2相同，称为 "MPEG 2.5"。</para></listitem>
+            </orderedlist>
+        </listitem>
+    </orderedlist>
+</sect1>
+
+<sect1><title>MPEG中不同帧之间的关系</title>
+    <para>对于Layer I和Layer II，不同的帧之间，是互相独立的。也就意味着，你可以任意截取MPEG的音频文件，然后找到第一个正确的帧头，后开始解码，对于余下的帧，都是同样的处理，解码后，进行播放，这样都可以正确的播放。</para>
+    <para>而对于Layer III，所有帧不保证都是互相独立的。此处不保证完全独立，指的是当前的帧和前后临近的那些帧，不一定完全独立，有可能有一定关系。这是由于可能用到“字节蓄水池（byte reservoir）”的技术，即内部的一个数据缓存，当前帧和其后的一些帧，都是相关的，最差情况下，要连续缓冲保存9个帧，才能对第一帧解码。</para>
+</sect1>
+
+<sect1><title>MPEG-1和MPEG-2音频特性</title>
+    <sect2><title>MPEG-1音频（ISO/IEC 11172-3）</title>
+        <para>MPEG-1音频（ISO/IEC 11172-3）描述了三层音频编码，具有如下特性：</para>
+        <orderedlist numeration="arabic">
+            <listitem><para>一个或两个音频声道</para></listitem>
+            <listitem><para>采样率32KHz、44.1KHz或48KHz</para></listitem>
+            <listitem><para>比特率从32Kbps到448Kbps</para></listitem>
+            <listitem><para>每一层都有其自己的其他特点。</para></listitem>
+        </orderedlist>
+    </sect2>
+
+    <sect2><title>MPEG-2音频（ISO/IEC 13813-3）</title>
+        <para>MPEG-2音频（ISO/IEC 13813-3）包含了对MPEG-1的两种扩展。通常称为MEGP-2/低采样率（LSF）和MPEG-2/多声道（Multichannel）。</para>
+        
+        <sect3><title>MPEG-2/LSF的特性</title>
+            <orderedlist numeration="arabic">
+                <listitem><para>一个或两个音频声道</para></listitem>
+                <listitem><para>采样率只有MPEG-1的一半</para></listitem>
+                <listitem><para>比特率从8Kpbs到256Kbps</para></listitem>
+            </orderedlist>
+        </sect3>
+        
+        <sect3><title>MPEG-2/多声道 的特性</title>
+            <orderedlist numeration="arabic">
+                <listitem><para>多达5个全范围的音频声道和一个LFE（Low Frequency Enhancement，也叫做 重低音）声道</para></listitem>
+                <listitem><para>采样率和MPEG-1相同</para></listitem>
+                <listitem><para>对于5.1声道，最高的比特率可达1Mpbs</para></listitem>
+            </orderedlist>
+        </sect3>
+    </sect2>
+    
+    <sect2><title>什么是ISO/IEC 11172-3和ISO/IEC 13818-3</title>
+        <para>由于MPEG只是ISO/IEC下面的一个组织，所以，关于MPEG音频部分的规范，也都是出自ISO/IEC之手。</para>
+        <para>因此，<emphasis>ISO/IEC 11172</emphasis>和<emphasis>ISO/IEC 13818</emphasis>，其实就是<emphasis>MPEG-1</emphasis>和<emphasis>MPEG-2</emphasis>的别名。</para>
+        <para>另外，由于MPEG-1和MPEG-2，每个都分好几个部分，其中，第3部分是关于音频（Audio）的。</para>
+        <para>所以，<emphasis>ISO/IEC 11172-3</emphasis>和<emphasis>ISO/IEC 13818-3</emphasis>，就分别对应着<emphasis>MPEG-1的音频</emphasis>，<emphasis>MPEG-2的音频</emphasis>，也就是我们常常提到的MPEG的音频文件所对应的规范。</para>
+    </sect2>
+    
+</sect1>
+
+</chapter>

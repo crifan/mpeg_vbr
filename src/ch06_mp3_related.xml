@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch06_mp3_related">
+<title>MP3相关的一些知识点的解释</title>
+<abstract></abstract>
+
+<sect1><title>MP3的文件的内容组织结构</title>
+    <para>总结起来，一般的MP3文件所包含的内容的结构如下：</para>
+    <table id="tbl.mp3_content_struct"><title>MP3文件的内容组织结构</title>
+        <tgroup cols="1">
+            <colspec colnum="1" colname="col1" colwidth="1*"/>
+            <tbody>
+                <row><entry><para>第二帧，格式如下：
+                    <simplelist type='horiz' columns='2'>
+                        <member>[ID3......]</member><member>ID3 V2的头，大多数最新的MP3，都有这个头</member>
+                        <member>[APE 头]</member><member>用于APE格式的头，现在也用于MPEG</member>
+                    </simplelist></para></entry></row>
+                
+                <!--
+                <row>
+                <entrytbl cols="2">
+                    <?dbhtml table-width="80%" ?>
+                    <?dbfo table-width="80%" ?>
+
+                    <colspec colnum="1" colname="col1" colwidth="1*"/>
+                    <colspec colnum="2" colname="col2" colwidth="6*"/>
+                    <thead>
+                        <row><entry>项</entry><entry>字节数</entry></row>
+                    </thead>
+                  <tbody>
+                    <row><entry>MPEG音频头</entry><entry>4</entry></row>
+                    <row><entry>边信息</entry><entry>9/17/32</entry></row>
+                    <row><entry>[Xing 头]</entry><entry>8-120字节。如果是VBR，多数都有此Xing头，而且只有第一帧有</entry></row>
+                    <row><entry>MPEG音频数据</entry><entry>一定的数目</entry></row>
+                  </tbody>
+                </entrytbl>
+                </row>
+                -->
+                
+                <row><entry><para>第一帧，格式如下：
+                    <simplelist type='horiz' columns='2'>
+                        <member>MPEG音频头</member><member>固定的4 字节</member>
+                        <member>边信息</member><member>9/17/32 字节</member>
+                        <member>[Xing 头]</member><member>8-120字节，如果是VBR，多数都有此Xing头，而且只有第一帧有</member>
+                        <member>MPEG音频数据</member><member></member>
+                    </simplelist></para></entry></row>
+                <row><entry><para>第二帧，格式如下：
+                    <simplelist type='horiz' columns='2'>
+                        <member>MPEG音频头</member><member>固定的4字节</member>
+                        <member>边信息</member><member>9/17/32 字节</member>
+                        <member>MPEG音频数据</member><member></member>
+                    </simplelist></para></entry></row>
+                <row><entry><para>第三帧，格式如下：
+                    <simplelist type='horiz' columns='2'>
+                        <member>MPEG音频头</member><member>固定的4字节</member>
+                        <member>边信息</member><member>9/17/32 字节</member>
+                        <member>MPEG音频数据</member><member></member>
+                    </simplelist></para></entry></row>
+                <row><entry>......</entry></row>
+                <row><entry><para>最后一帧，格式如下：
+                    <simplelist type='horiz' columns='2'>
+                        <member>MPEG音频头</member><member>固定的4字节</member>
+                        <member>边信息</member><member>9/17/32 字节</member>
+                        <member>MPEG音频数据</member><member></member>
+                    </simplelist></para></entry></row>
+
+                <row><entry>[TAG ......] 128字节的ID3 V1信息，如果没有前面的ID3 V2，多数都有这个ID3 V1的头</entry></row>
+            </tbody>
+        </tgroup>
+    </table>
+    <tip>[]号内的，表示，可选，即如果有的话。</tip>
+    
+</sect1>
+
+<sect1><title>MP3帧的时长是26ms的来历</title>
+    <para>时长，即时间长度。</para>
+    <para>MP3，即MPEG-1，Layer III。</para>
+    <para>MPEG1，Layer III，根据<xref linkend="mpeg.samplenum_index_table"/>可以查得，每一帧的采样个数，是1152，这个值是固定的。</para>
+    <para>而MPEG-1所支持的采样率，根据<xref linkend="mpeg.samplerate_index_table" />可以看出有三种，44.1K，48K和32K Hz。而我们实际常见的CBR或者VBR的MP3所采用的采样率，多数都是44.1KHz=44100Hz。</para>
+    <para>所以，每一个采样的时长 = 1/44100 秒</para>
+    <para>因此：</para>
+    <para><emphasis>每一帧的总时长</emphasis></para>
+    <para><emphasis>= 每一帧的采样个数 * 每个采样的时长</emphasis></para>
+    <para><emphasis>= 1152个采样 * 1/44100 秒/采样</emphasis></para>
+    <para>= 1152 / 44100 秒</para>
+    <para>= 0.026秒</para>
+    <para><emphasis>= 26 ms（毫秒）</emphasis></para>
+    <para>这就是所谓的，MP3的每帧的时长，都是26ms这一说法的缘由。</para>
+</sect1>
+
+<sect1><title>怎么算出来MP3的压缩比大概是1:11的</title>
+    <para>正常，所谓CD里面的歌曲，是无损格式，即原始的声音，没有经过压缩的。</para>
+    <para>相对来说，音质最高，但是文件体积太大。到底有多大，我们可以来算一下：</para>
+    <para><emphasis>每秒的原始CD的音频文件的数据量</emphasis></para>
+    <para>= 声道数目 * 采样率 * 每个采样占用多少bit</para>
+    <para>= 2声道 * 44100Hz * 16位</para>
+    <para><emphasis>= 1411200 bit</emphasis></para>
+    <para>而对应的MP3文件来说，即将原始的音频数据文件，经过MP3的压缩算法压缩后，数据量就小多了。以常见的双声道的，频率为44100Hz，比特率为128Kbps的MP3为例：</para>
+    <para><emphasis>每秒的MP3的数据量</emphasis></para>
+    <para>= 比特率 * 1秒</para>
+    <para>= 128K bits</para>
+    <para><emphasis>= 128 000 bit</emphasis></para>
+    <para>因此：</para>
+    <para><emphasis>MP3的压缩率</emphasis></para>
+    <para>=  每秒的原始CD的音频文件的数据量 /每秒的MP3的数据量</para>
+    <para>=  1411200 bit / 128 000 bit</para>
+    <para><emphasis>=  11.025</emphasis></para>
+    <para><emphasis>≈ 11</emphasis></para>
+    <para>这就是大家常说的，MP3的压缩比大概有1:11，即在保持不错的音质前提下，将数据量减小到了原来的1/11。通俗点说，原先CD音质的，无压缩的歌曲是11M的话，那么对应的MP3就只有1M。相对很不错的压缩比，大大减小了歌曲的体积，在互联网时代，此优势得到很好的体现，因此MP3才真正流行了起来。</para>
+    <para>当然，如果其他参数同上，而MP3比特率是64Kbps，那么对应压缩比有1:22；</para>
+    <para>同理，如果是256Kbps的MP3，那么压缩比就小了，只有1:5.5左右了。</para>
+</sect1>
+
+<sect1><title>怎么算出来MP3的压缩比大概是1:11的</title>
+    <sect2><title>原因之一</title>
+        <para>实际上，如果清楚了MP3的音频帧的大小，你就会发现，这些帧头很小，对于数据帧本身和MP3文件大小的影响，可以忽略不计。</para>
+        <para>因为，MPEG的帧头，一共就32bit=4字节，相对于每一帧的音频数据，以常见的采样率为44100 Hz，比特率为128kbps的CBR的MP3来说，是418个字节，只相当于音频数据的1/100左右，所以，相对来说，对于整个文件的影响很小。</para>
+        <para>所以说，每个帧都加上这4个字节的帧头，对于数据帧本身和MP3文件大小的影响，可以忽略不计。</para>
+        <para>这只是每一帧都保留一个MPEG帧的帧头的原因之一。</para>
+    </sect2>
+    
+    <sect2><title>原因之二</title>
+        <para>虽然对于CBR的MP3，除了第一帧之外的每一帧的MPEG帧头，是可以去掉。但是对于VBR的MP3，每一帧的MPEG帧头，都包含了当前帧的比特率的信息，而VBR的每一帧的比特率的大小，都是不一定相同的，因此每一帧都必须要有对应的MPEG帧的帧头，来提供这些相关信息，供解码器正确解码和播放MP3。</para>
+    </sect2>
+</sect1>
+
+</chapter>

@@ -1,0 +1,297 @@
+xsltproc.exe -o /cygdrive/e/Dev_Root/docbook/dev/src/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_cr_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/books/VBR/src/MPEG_VBR.xml
+
+fop -c conf\fop.xconf E:\Dev_Root\docbook\dev\src\books\VBR\output\fo\MPEG_VBR.fo -pdf E:\Dev_Root\docbook\dev\src\books\VBR\output\pdf\MPEG_VBR.pdf
+====================================================================================================
+
+try run in cygwin:
+
+/cygdrive/e/Dev_Root/docbook/config/tool/fop/fop-1.0
+
+xsltproc.exe -o /cygdrive/e/Dev_Root/docbook/dev/src/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_cr_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/books/VBR/src/MPEG_VBR.xml
+
+
+xsltproc.exe -xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_cr_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/books/VBR/src/MPEG_VBR.xml
+
+./fop.cmd -c conf/fop.xconf E:/Dev_Root/docbook/dev/src/books/VBR/output/fo/MPEG_VBR.fo -pdf E:/Dev_Root/docbook/dev/src/books/VBR/output/pdf/MPEG_VBR.pdf
+
+====================================================================================================
+xsltproc.exe --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_crl_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+E:/Dev_Root/docbook/config/tool/fop/fop-1.0/fop.cmd -c E:/Dev_Root/docbook/config/tool/fop/fop-1.0/conf/fop.xconf E:/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo -pdf E:/Dev_Root/docbook/dev/src/docbook/books/VBR/output/pdf/MPEG_VBR.pdf
+
+
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_crl_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+E:/Dev_Root/docbook/config/tool/fop/fop-1.0/fop.cmd -c E:/Dev_Root/docbook/config/tool/fop/fop-1.0/conf/fop.xconf E:/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo -pdf E:/Dev_Root/docbook/dev/src/docbook/books/VBR/output/pdf/MPEG_VBR.pdf
+
+
+
+====================================================================================================
+output HTML:
+xsltproc.exe --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/html/MPEG_VBR.html /usr/share/sgml/docbook/xsl-ns-stylesheets/html/docbook_crl_yahei.xsl  /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/html/MPEG_VBR.html /usr/share/sgml/docbook/xsl-ns-stylesheets/html/docbook_crl.xsl  /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+====================================================================================================
+output XHTML:
+xsltproc.exe --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/xhtml/MPEG_VBR.xhtml /usr/share/sgml/docbook/xsl-ns-stylesheets/xhtml/docbook_crl_yahei.xsl  /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+
+
+====================================================================================================
+xsltproc.exe --xinclude -o /home/CLi/develop/docbook/books/VBR/VBR/output/html/MPEG_VBR.html /home/CLi/develop/docbook/tools/docbook-xsl-ns-1.76.1/html/docbook_crl.xsl  /home/CLi/develop/docbook/books/VBR/VBR/src/MPEG_VBR.xml
+
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --xinclude -o /home/CLi/develop/docbook/books/VBR/VBR/output/html/MPEG_VBR.html /home/CLi/develop/docbook/tools/docbook-xsl-ns-1.76.1/html/docbook_crl.xsl  /home/CLi/develop/docbook/books/VBR/VBR/src/MPEG_VBR.xml
+
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --xinclude -o /home/CLi/develop/docbook/books/VBR/VBR/output/html/MPEG_VBR.html /home/CLi/develop/docbook/tools/docbook-xsl-ns-1.76.1/html/docbook_crl.xsl  /home/CLi/develop/docbook/books/VBR/VBR/src/MPEG_VBR.xml
+
+
+----------------------------------------------------------------------------------------------------
+generate xsl, in cygwin:
+xsltproc --output fo/titlepage.template_crl.xsl template/titlepage.xsl fo/titlepage.templates_crl.xml
+
+----------------------------------------------------------------------------------------------------
+java -cp build\fop.jar;lib\avalon-framework-4.2.0.jar;lib\commons-logging-1.0.4.jar;lib\commons-io-1.3.1.jar;lib\xmlgraphics-commons-1.4.jar org.apache.fop.fonts.apps.TTFReader -ttcname SimHei c:\WINDOWS\Fonts\simhei.ttf fonts\simhei.xml
+
+java -cp build\fop.jar;lib\avalon-framework-4.2.0.jar;lib\commons-logging-1.0.4.jar;lib\commons-io-1.3.1.jar;lib\xmlgraphics-commons-1.4.jar org.apache.fop.fonts.apps.TTFReader -ttcname msyhbd c:\WINDOWS\Fonts\msyhbd.ttf fonts\msyhbd.xml
+----------------------------------------------------------------------------------------------------
+
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_crl_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --stringparam ulink.show 0 --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_crl_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+E:/Dev_Root/docbook/config/tool/fop/fop-1.0/fop.cmd -c E:/Dev_Root/docbook/config/tool/fop/fop-1.0/conf/fop.xconf E:/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo -pdf E:/Dev_Root/docbook/dev/src/docbook/books/VBR/output/pdf/MPEG_VBR.pdf
+
+----------------------------------------------------------------------------------------------------
+测试ulinkk及其他参数：
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --stringparam ulink.show 1 --stringparam ulink.footnotes 1 --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_crl_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1  --stringparam ulink.show 1 --stringparam ulink.footnotes 1  --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/html/MPEG_VBR.html /usr/share/sgml/docbook/xsl-ns-stylesheets/html/docbook_crl.xsl  /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --stringparam ulink.show 1 --stringparam ulink.footnotes 1 --stringparam ulink.hyphenate 1 --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_crl_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --stringparam ulink.show 1 --stringparam ulink.footnotes 1 --stringparam ulink.hyphenate 1 --stringparam ulink.hyphenate.chars = --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_crl_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --stringparam ulink.show 1 --stringparam ulink.footnotes 1 --stringparam ulink.hyphenate 1 --stringparam ulink.hyphenate.chars '/' --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_crl_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+http://docbook.sourceforge.net/release/xsl/1.76.1/doc/fo/table.cell.border.color.html:
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --stringparam ulink.show 1 --stringparam ulink.footnotes 1 --stringparam table.cell.border.color green --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_crl_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+http://docbook.sourceforge.net/release/xsl/1.76.1/doc/fo/table.frame.border.thickness.html
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --stringparam ulink.show 1 --stringparam ulink.footnotes 1 --stringparam table.cell.border.color green --stringparam table.frame.border.thickness 2pt --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_crl_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+================================================================================
+
+
+################################################################################
+添加cygwin到右键：
+http://www.crifan.com/finishing_in_the_windows_makes_it_possible_to_add_the_right_to_run_cygwin_and_navigate_directly_to_the_current_folder__finishing_in_windows_xp_right-add_command_line_cmd_command_open_the_current_folde/
+HKEY_CLASSES_ROOT\Directory\shell
+RunCygwin
+command
+D:\tmp\tmp_dev_root\cgwin\bin\bash -login -c "cd '%1'; exec bash -rcfile ~/.bashrc"
+
+################################################################################
+在：
+/cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src
+下:
+生成pdf：
+（暂时不用的配置：
+--stringparam insert.xref.page.number yes 
+）
+
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --stringparam ulink.show 1 --stringparam ulink.footnotes 1 --stringparam table.cell.border.color green --stringparam table.frame.border.thickness 2pt --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo /usr/share/sgml/docbook/xsl-ns-stylesheets/fo/docbook_fo_crl_yahei.xsl /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+E:/Dev_Root/docbook/config/tool/fop/fop-1.0/fop.cmd -c E:/Dev_Root/docbook/config/tool/fop/fop-1.0/conf/fop.xconf E:/Dev_Root/docbook/dev/src/docbook/books/VBR/output/fo/MPEG_VBR.fo -pdf E:/Dev_Root/docbook/dev/src/docbook/books/VBR/output/pdf/MPEG_VBR.pdf
+
+
+生成HTML：
+（根据：
+http://docbook.sourceforge.net/release/xsl/1.76.1/doc/fo/index.html
+和实际测试结果，下列参数，是针对FOP的，所以对于HTML无效：
+ulink.show
+ulink.footnotes
+table.cell.border.color
+table.frame.border.thickness
+）
+xsltproc.exe --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam bibliography.numbered 1 --xinclude -o /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/output/html/MPEG_VBR.html /usr/share/sgml/docbook/xsl-ns-stylesheets/html/docbook_crl.xsl  /cygdrive/e/Dev_Root/docbook/dev/src/docbook/books/VBR/src/MPEG_VBR.xml
+
+
+============================ 之前试过的命令 ===================================
+(1) lynx
+lynx.exe -assume_charset=UTF8 -assume_local_charset=UTF8 -display_charset=UTF8 -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/lynx/MPEG_VBR_utf8_localUtf8_displayUtf8.txt
+lynx.exe -display_charset=UTF8 -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/lynx/MPEG_VBR_displayUtf8.txt
+
+(2) 3wm
+w3m -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/w3m/MPEG_VBR.txt
+
+(3)links
+links -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/links/MPEG_VBR.txt
+links -force-html -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/links/MPEG_VBR_forceHtml.txt
+links -codepage windows-1250 -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/links/MPEG_VBR_1250.txt
+links -codepage windows-1252 -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/links/MPEG_VBR_1252.txt
+links -codepage UTF-8 -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/links/MPEG_VBR_utf8.txt
+links -codepage 65001 -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/links/MPEG_VBR_65001.txt
+links -codepage windows-936 -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/links/MPEG_VBR_936.txt
+最后没找到有效的命令。
+
+(4)elinks
+elinks -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/elinks/MPEG_VBR.txt
+
+
+(2) openjade
+openjade -t rtf -d /usr/local/share/sgml/docbook/dsssl/print/docbook.dsl /usr/local/share/sgml/docbook/dtds/decls/xml.dcl test.xml
+openjade -t rtf -E 0 -d /usr/share/sgml/docbook/dsssl-stylesheets/print/docbook.dsl /usr/share/sgml/docbook/sgml-dtd-4.5/docbook.dcl MPEG_VBR.xml -o ../output/rtf/openjade/MPEG_VBR.rtf
+openjade -t rtf /usr/share/sgml/docbook/sgml-dtd-4.5/docbook.dcl -o ../output/rtf/openjade/MPEG_VBR.rtf MPEG_VBR.xml
+openjade -t rtf -E 0 -d /usr/share/sgml/docbook/dsssl-stylesheets/print/docbook.dsl /usr/share/sgml/docbook/sgml-dtd-4.5/docbook.dcl MPEG_VBR.xml
+没有生产出来rtf，好像需要实现搭建好对应的openjade的环境的
+
+用最新的fop试试生成rtf是否有改观：
+D:/tmp/tmp_dev_root/cgwin/home/CLi/develop/docbook/tools/fop_latest/fop-20120509/fop.cmd -c D:/tmp/tmp_dev_root/cgwin/home/CLi/develop/docbook/config/fop/conf/fop.xconf ../output/fo/MPEG_VBR.fo -rtf ../output/rtf/fop/MPEG_VBR_newFop.rtf
+
+D:/tmp/tmp_dev_root/cgwin/home/CLi/develop/docbook/tools/fop_latest/fop-20120509/fop.bat -c D:/tmp/tmp_dev_root/cgwin/home/CLi/develop/docbook/config/fop/conf/fop.xconf ../output/fo/MPEG_VBR.fo -rtf ../output/rtf/fop/MPEG_VBR_newFop.rtf
+结果没法运行。
+
+(2)XFC
+/home/CLi/develop/docbook/tools/xfc/xfc_perso_java-4_6_1/bin/fo2rtf.bat ../output/fo/MPEG_VBR.fo ../output/rtf/xfc/MPEG_VBR.rtf
+生成的rtf的效果还不如fop生成的rtf好
+
+
+7.生成PNG：
+XML_CATALOG_FILES="/cygdrive/e/Dev_Root/docbook/dev/config/catalog/catalog.xml" \
+    XML_DEBUG_CATALOG=1 \
+    xsltproc.exe --xinclude -o ../output/fo/MPEG_VBR.fo docbook_fo_crl.xsl MPEG_VBR.xml
+
+E:/Dev_Root/docbook/tools/fop-1.0/fop.cmd -c E:/Dev_Root/docbook/dev/config/fop/conf/fop.xconf ../output/fo/MPEG_VBR.fo -png ../output/png/MPEG_VBR.png
+
+
+用绝对路径的fop生成pdf：
+E:/Dev_Root/docbook/tools/fop-1.0/fop.cmd -c E:/Dev_Root/docbook/dev/config/fop/conf/fop.xconf ../output/fo/MPEG_VBR.fo -pdf ../output/pdf/MPEG_VBR.pdf
+
+尝试cygwin下面的fop：
+/cygdrive/e/Dev_Root/docbook/tools/fop-1.0/fop -c /cygdrive/e/Dev_Root/docbook/dev/config/fop/conf/fop.xconf ../output/fo/MPEG_VBR.fo -pdf ../output/pdf/MPEG_VBR.pdf
+
+#################################### Office ####################################
+Cygwin中，当前src路径：/home/CLi/develop/docbook/books/VBR/VBR/src
+
+1. 从xml生成xsl：
+在cmd下面，当前路径：/home/CLi/develop/docbook/config/docbook-xsl-ns-1.76.1/fo
+xsltproc --output titlepage.template_crl.xsl D:/tmp/tmp_dev_root/cgwin/home/CLi/develop/docbook/tools/docbook-xsl-ns-1.76.1/template/titlepage.xsl titlepage.templates_crl.xml
+
+2. 检验catalog：
+xmllint.exe --valid --noout /home/CLi/develop/docbook/config/catalog/catalog.xml
+
+3. 生成pdf：
+XML_CATALOG_FILES="/home/CLi/develop/docbook/config/catalog/catalog.xml" \
+    XML_DEBUG_CATALOG=1 \
+    xsltproc.exe --xinclude -o ../output/fo/MPEG_VBR.fo docbook_fo_crl.xsl MPEG_VBR.xml
+
+D:/tmp/tmp_dev_root/cgwin/home/CLi/develop/docbook/tools/fop/fop.cmd -c D:/tmp/tmp_dev_root/cgwin/home/CLi/develop/docbook/config/fop/conf/fop.xconf ../output/fo/MPEG_VBR.fo -pdf ../output/pdf/MPEG_VBR.pdf
+
+4. 生成HTML：
+（
+ --stringparam emphasis.propagates.style 1：没看出啥效果
+）
+(1)单个HTML：
+XML_CATALOG_FILES="/home/CLi/develop/docbook/config/catalog/catalog.xml" \
+    XML_DEBUG_CATALOG=1 \
+    xsltproc.exe --xinclude -o ../output/html/single/MPEG_VBR.html docbook_html_crl.xsl MPEG_VBR.xml
+
+(2)多个HTML：
+XML_CATALOG_FILES="/home/CLi/develop/docbook/config/catalog/catalog.xml" \
+    XML_DEBUG_CATALOG=1 \
+    xsltproc.exe --xinclude -o ../output/html/multi/MPEG_VBR.html chunk_html_crl.xsl MPEG_VBR.xml
+
+5.生成Plain Text纯文本：
+w3m -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/w3m/MPEG_VBR.txt
+w3m -I UTF8 -O UTF8 -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/w3m/MPEG_VBR_utf8.txt
+
+6. 生成htmlhelp：
+XML_CATALOG_FILES="/home/CLi/develop/docbook/config/catalog/catalog.xml" \
+    XML_DEBUG_CATALOG=1 \
+    xsltproc.exe --xinclude -o ../output/htmlhelp/MPEG_VBR.html docbook_htmlhelp_crl.xsl MPEG_VBR.xml
+
+7.生成RTF：
+(1) fop
+XML_CATALOG_FILES="/home/CLi/develop/docbook/config/catalog/catalog.xml" \
+    XML_DEBUG_CATALOG=1 \
+    xsltproc.exe --xinclude -o ../output/fo/MPEG_VBR.fo docbook_fo_crl.xsl MPEG_VBR.xml
+
+D:/tmp/tmp_dev_root/cgwin/home/CLi/develop/docbook/tools/fop/fop.cmd -c D:/tmp/tmp_dev_root/cgwin/home/CLi/develop/docbook/config/fop/conf/fop.xconf ../output/fo/MPEG_VBR.fo -rtf ../output/rtf/fop/MPEG_VBR.rtf
+
+
+#################################### Home ####################################
+1. 从xml生成xsl：
+在cygwin下面，当前路径：/cygdrive/e/Dev_Root/docbook/dev/config/docbook-xsl-ns-1.76.1/fo
+xsltproc --output titlepage.template_crl.xsl /cygdrive/e/Dev_Root/docbook/tools/docbook-xsl-ns-1.76.1/template/titlepage.xsl titlepage.templates_crl.xml
+
+cmd下面的话，当前路径：E:\Dev_Root\docbook\dev\config\docbook-xsl-ns-1.76.1\fo
+xsltproc --output titlepage.template_crl.xsl E:/Dev_Root/docbook/tools/docbook-xsl-ns-1.76.1/template/titlepage.xsl titlepage.templates_crl.xml
+
+前提：
+A。Cygwin的当前src路径：
+/cygdrive/e/Dev_Root/docbook/dev/books/VBR/src
+B。已经添加了fop的路径：
+E:\Dev_Root\docbook\tools\fop-1.0
+到windows的path路径中了。
+
+2. 生成pdf：
+XML_CATALOG_FILES="/cygdrive/e/Dev_Root/docbook/dev/config/catalog/catalog.xml" \
+    XML_DEBUG_CATALOG=1 \
+    xsltproc.exe --xinclude -o ../output/fo/MPEG_VBR.fo docbook_fo_crl.xsl MPEG_VBR.xml
+
+fop -c E:/Dev_Root/docbook/dev/config/fop/conf/fop.xconf ../output/fo/MPEG_VBR.fo -pdf ../output/pdf/MPEG_VBR.pdf
+
+或
+fop -c /Dev_Root/docbook/dev/config/fop/conf/fop.xconf ../output/fo/MPEG_VBR.fo -pdf ../output/pdf/MPEG_VBR.pdf
+
+3.生成HTML
+(1) 生成单个HTML：
+XML_CATALOG_FILES="/cygdrive/e/Dev_Root/docbook/dev/config/catalog/catalog.xml" \
+    XML_DEBUG_CATALOG=1 \
+    xsltproc.exe --xinclude -o ../output/html/single/MPEG_VBR.html docbook_html_crl.xsl MPEG_VBR.xml
+
+(2) 生成多个HTML：
+XML_CATALOG_FILES="/cygdrive/e/Dev_Root/docbook/dev/config/catalog/catalog.xml" \
+    XML_DEBUG_CATALOG=1 \
+    xsltproc.exe --xinclude -o ../output/html/multi/MPEG_VBR.html chunk_html_crl.xsl MPEG_VBR.xml
+
+4.生成Plain Text纯文本：
+w3m -I UTF8 -O UTF8 -dump ../output/html/single/MPEG_VBR.html > ../output/plain_text/w3m/MPEG_VBR.txt
+
+5. 生成htmlhelp：
+(1)生成html和hhp,hhc等文件
+XML_CATALOG_FILES="/cygdrive/e/Dev_Root/docbook/dev/config/catalog/catalog.xml" \
+    XML_DEBUG_CATALOG=1 \
+    xsltproc.exe --xinclude -o ../output/htmlhelp/MPEG_VBR.html docbook_htmlhelp_crl.xsl MPEG_VBR.xml
+
+(2) 然后将htmlhelp.hhp和toc.hhc转换为ANSI编码（GB2312/GBK/GB18030）-> toc.hhc和htmlhelp.hhp才能被hhc正常识别
+iconv -f UTF-8 -t GB18030 < ../output/htmlhelp/htmlhelp.hhp > ../output/htmlhelp/htmlhelp_gb18030.hhp
+mv ../output/htmlhelp/htmlhelp_gb18030.hhp ../output/htmlhelp/htmlhelp.hhp
+iconv -f UTF-8 -t GB18030 < ../output/htmlhelp/toc.hhc > ../output/htmlhelp/toc_gb18030.hhc
+mv ../output/htmlhelp/toc_gb18030.hhc ../output/htmlhelp/toc.hhc
+
+(3)用hhc调用hhp生成chm：
+hhc ../output/htmlhelp/htmlhelp.hhp
+
+6.生成RTF：
+(1) fop
+XML_CATALOG_FILES="/cygdrive/e/Dev_Root/docbook/dev/config/catalog/catalog.xml" \
+    XML_DEBUG_CATALOG=1 \
+    xsltproc.exe --xinclude -o ../output/fo/MPEG_VBR.fo docbook_fo_crl.xsl MPEG_VBR.xml
+
+E:/Dev_Root/docbook/tools/fop-1.0/fop.cmd -c E:/Dev_Root/docbook/dev/config/fop/conf/fop.xconf ../output/fo/MPEG_VBR.fo -rtf ../output/rtf/fop/MPEG_VBR.rtf
+
+
+================================================================================
+为了统一路径，去建立软连接：
+
+Office：
+ln -s /home/CLi/develop/docbook/tools /home/develop/docbook/tools_root
+ln -s /home/CLi/develop/docbook/config /home/develop/docbook/config_root
+
+Home：
+
+fop -c D:/tmp/tmp_dev_root/cgwin/home/CLi/develop/docbook/config/fop/conf/fop.xconf ../output/fo/MPEG_VBR.fo -pdf ../output/pdf/MPEG_VBR.pdf
+
+fop -c /home/CLi/develop/docbook/config/fop/conf/fop.xconf ../output/fo/MPEG_VBR.fo -pdf ../output/pdf/MPEG_VBR.pdf
+

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+]>
+
+<chapter 
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch02_mp3_term">
+<title>MP3中常见的术语</title>
+<abstract>知道了MPEG的来龙去脉后，在了解MP3的播放时间如何计算之前，还要知道其他一些MP3相关的知识及常见的术语：</abstract>
+
+<sect1><title>啥叫MP3</title>
+    <para>注意，这个MP3，不是MPEG-3，但是为何叫MP3，是因为：</para>
+    <para>MPEG规范中规定了，每一个版本的MPEG，比如MPEG1，MPEG2等，都有三种不同的Layer，不同Layer的序号命令是以罗马数字的，所以叫做Layer I， Layer II， Layer III。其中，MPEG-1或MPEG-2的Layer III，被称为MP3，而其中最常见的是MPEG 1 的Layer III，所以，被大家所熟知的MP3，一般都指的是MPEG-1的Lay III。
+    </para>
+    <para>即<emphasis>MPEG-1的Layer III</emphasis>被简称为<emphasis>MP3</emphasis>。</para>
+    <para>根据事物发展由简到繁的规律，我们知道，Layer III，相对Layer I和Layer II，有着更复杂的压缩算法。正是其相对复杂，用了很多算法，比如声学上的掩蔽效应（masking effect），Huffman压缩等，才使得可以实现，在尽可能保持音质的前提下，极大地减少了音频文件大小，也就是说，尽量让你听上去音频声音和音质都没啥变化，但是MP3的文件大小，相对于原先没处理的音频数据或者其他格式的，比如WAV格式等，要小很多。</para>
+    <para>音质满足大家的要求，文件又小，在互联网时代，就非常方便大家互相交流传播。</para>
+    <para>这也是MP3如此流行的主要原因之一。</para>
+</sect1>
+
+<sect1><title>什么是LSF</title>
+    <para>MPEG2/2.5 也常被简称为LSF（Low Sampling Frequencies），低采样率。</para>
+</sect1>
+
+<sect1><title>什么是帧（frame）</title>
+    <para>帧，即数据帧，通俗点说，就是一段数据，一块数据，数据块。</para>
+    <para>对于MPEG音频文件本身，并没有什么文件头，而是由很多数据块所组成，这样的单个的数据块，就叫做一个（数据/音频）帧（frame）。</para>
+    <para>而MP3文件，就是由很多个帧所组成。</para>
+    <para>帧，也是其他很多音视频技术中的基本单位。</para>
+</sect1>
+
+<sect1><title>什么是帧头（Frame Header）</title>
+    <para>每一个帧里面，包含了帧头和音频数据。帧头，就是在帧的头部，有一定长度的数据，用于描述改帧音频的一些参数，用于解码器识别相关音频参数，用于对音频帧解码。</para>
+    <para>对于MPEG的帧头，是固定的32 比特，即4字节。</para>
+</sect1>
+
+<sect1><title>啥是CBR和VBR</title>
+    <para>CBR（Constant BitRate）固定(/不变)比特率，VBR（Variable BitRate ），不定(/可变)比特率。此处的固定与可变，指的是MP3的比特率，而不是指采样率。</para>
+    <para>音频文件可以被编码器编码成CBR或VBR。</para>
+    <para>VBR意思就是，每一帧的比特率都不一定相同（当然，很有可能临近的一些帧的比特率相同）。由于VBR在编码的时候，根据当前采样的声音数据的复杂度，去判断是采用何种比特率。比如对于很复杂的声音，那么就用更多的比特位去编码，如果是很简单的声音甚至是无声（silence）的数据，那么就可以用很少的比特位去编码，这样不同情况下，所产生的MP3音频数据的大小，是不同的，但是却可以一直保持同样的音质。</para>
+    <para>因此，总体来说，对于同样大小的MP3文件，VBR的音质一般要比CBR的好。</para>
+    <para>很多种音视频文件，都可以按照VBR来压缩，比如MP3、WMA、OGG Vorbis、AAC，MPEG-2的视频等。</para>
+    <para>VBR的优点是，和CBR相比，用更小的空间，即文件更小，实现更高的音质。缺点是，编码复杂度增加，编码和解码都需要更长时间，而且很早之前，有些硬件编码器可能和VBR不兼容。不过现在一般硬件的音频解码器，都可以很好的兼容VBR了。</para>
+</sect1>
+
+<sect1><title>比特率（Bitrate）</title>
+    <para>即每秒包含了多少个比特的数据。比特率常用Kbps（kilo bits per second，千比特每秒）表示。注意，此处的千比特=1000 bits，而不是1024.</para>
+</sect1>
+
+<sect1><title>边信息（Side Information）</title>
+    <para>在MPEG音频的帧头的后面，有一些解码器会用到的一些信息，用于解码器控制音频流的播放，它就叫做 边信息。</para>
+</sect1>
+
+<sect1><title>MP3的TAG</title>
+    <para>MP3文件中，会在一些位置（文件最开始或者是最后，或者其他某个固定位置），存放一些TAG，即标签，用于描述文件的相关信息，其中最常见的一些，比如，MP3音乐的歌手名，专辑名，专辑年份，曲风等等。</para>
+    <para>关于MP3的TAG，现在常见的有ID3v1（ID3的第一版），ID3v2（ID3的第二版），APEv2等。</para>
+    <para>同一文件中，一般只存在某一种TAG， 即，是ID3v2或 APEv2或ID2v1或其他。</para>
+    <para>与此相关的应用方面，我们用千千静听去播放MP3的时候，播放器中点击文件属性，还可以看到有MP3标签的读取优先级方面的设置，默认设置为APEv2 > ID3v2 > ID3v1。</para>
+    <para></para>
+    <para>如果MP3文件中存在ID3的TAG话：</para>
+    <para>ID3v1会放在音频文件的最后，大小128个字节，其中前三个字节是字符“TAG”。</para>
+    <para>ID3v2 一般放在音频文件的开头处，前三个字节是字符“ID3”。</para>
+    <para>关于ID3的具体格式，请参考附录中的引用文献。</para>
+    <para>MP3的TAG，只是用于存储歌曲等方面的辅助描述信息，与MP3的解码，没啥关系，故此处不在过多介绍。</para>
+</sect1>
+
+</chapter>

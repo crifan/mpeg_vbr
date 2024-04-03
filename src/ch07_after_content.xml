@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+]>
+
+<chapter 
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch07_after_content">
+<title>后记</title>
+<abstract>最后想说的是，其实很无语，对于很多东西，尤其是计算机相关的技术，网上能找到的中文资料，多数都是说的不是太清楚。其中，包括我这里要找的，如何去计算VBR的播放时间，多数情况是，不论是去百度Google一下，还是去Google百度一下，找了半天，还是没看到有几个人能说清楚。让人越发感叹道，国内的计算机方面的技术，和国外，差的的确不是一点两点。人家把规范都定好了，过了N年了，结果咱们到现在，也没几个搞清楚咋回事。。。
+因此，对于计算机方面的资料，尤其是涉及底层技术的，能详细解释清楚你的问题的，多数都是一些英文原版资料。所以，在此，再次，感谢一下原作者。。。
+</abstract>
+
+</chapter>

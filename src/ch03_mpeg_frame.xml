@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+]>
+
+<chapter 
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch03_mpeg_frame"
+    >
+<title>MPEG的帧Frame</title>
+<abstract>
+    <para>MPEG音频文件，由一个个的帧（Frame）组成。</para>
+    <para>每一MPEG帧都有个帧头（Frame Header），位于帧的最开始处，接下来的是音频数据(Audio Sample/Audio Data)，即：</para>
+    <para><emphasis>MPEG帧 = MPEG帧头 + MPEG音频数据</emphasis></para>
+    <para></para>
+    <para>下面分别详细介绍MPEG帧头和音频数据的细节内容：</para>
+</abstract>
+
+<sect1><title>MPEG帧头（Frame Header）</title>
+    <para>MPEG音频的三种Layer的，尽管他们的压缩方法各不相同，但是帧头格式都一样。</para>
+    <para>先说一下大小，MPEG帧头，共32bit=4字节。</para>
+    <para>然后再看具体的格式及含义，如下所示：</para>
+    
+    <table>
+        <title id="mpeg.header_format">MPEG音频的帧头的格式</title>
+        <tgroup cols="4">
+        <colspec colnum="1" colname="col1" colwidth="1*"/>
+        <colspec colnum="2" colname="col2" colwidth="1*"/>
+        <colspec colnum="3" colname="col3" colwidth="6*"/>
+        <colspec colnum="4" colname="col4" colwidth="2*"/>
+
+            <thead>
+                <row><entry>位置(bit)</entry><entry>长度(bit)</entry><entry>含义</entry><entry>示例</entry></row>
+            </thead>
+            
+            <tbody>
+                <row><entry>0</entry><entry>11</entry><entry>用于同步帧，找到此帧头（所有位均置1）</entry><entry>1111 1111 111</entry></row>
+                <row><entry>11</entry><entry>2</entry>
+                    <entrytbl cols="2" align="center">
+                        <?dbhtml table-width="90%" ?><?dbfo table-width="90%" ?>
+                        <colspec colnum="1" colname="col1" colwidth="1*"/>
+                        <colspec colnum="2" colname="col2" colwidth="10*"/>
+                        <thead>
+                            <row><entry namest="col1" nameend="col2" align="center">MPEG音频的版本ID</entry></row>
+                        </thead>
+                      <tbody>
+                        <row><entry>00</entry><entry>MPEG 2.5 (MPED-2的非官方扩展版本)</entry></row>
+                        <row><entry>01</entry><entry>保留</entry></row>
+                        <row><entry>10</entry><entry>MPEG 2 (ISO/IEC 13818-3)</entry></row>
+                        <row><entry>11</entry><entry>MPEG 1 (ISO/IEC 11172-3)</entry></row>
+                      </tbody>
+                    </entrytbl>
+                                                                                <entry>11</entry></row>
+                <row>
+                    <entry>13</entry>
+                    <entry>2</entry>
+                    <entrytbl cols="2" align="center">
+                        <?dbhtml table-width="90%" ?><?dbfo table-width="90%" ?>
+                        <colspec colnum="1" colname="col1" colwidth="1*"/>
+                        <colspec colnum="2" colname="col2" colwidth="10*"/>
+                        <thead>
+                            <row><entry namest="col1" nameend="col2" align="center">Layer的索引</entry></row>
+                        </thead>
+                      <tbody>
+                        <row><entry>00</entry><entry>保留</entry></row>
+                        <row><entry>01</entry><entry>Layer III</entry></row>
+                        <row><entry>10</entry><entry>Layer II</entry></row>
+                        <row><entry>11</entry><entry>Layer I</entry></row>
+                      </tbody>
+                    </entrytbl>
+                    <entry>01</entry>
+                </row>
+                <row>
+                    <entry>15</entry>
+                    <entry>1</entry>
+                    <entrytbl cols="2" align="center">
+                        <?dbhtml table-width="90%" ?><?dbfo table-width="90%" ?>
+                        <colspec colnum="1" colname="col1" colwidth="1*"/>
+                        <colspec colnum="2" colname="col2" colwidth="10*"/>
+                        <thead>
+                            <row><entry namest="col1" nameend="col2" align="center">保护位</entry></row>
+                        </thead>
+                      <tbody>
+                        <row><entry>0</entry><entry>用16位的CRC保护下面的帧头</entry></row>
+                        <row><entry>1</entry><entry>无CRC</entry></row>
+                      </tbody>
+                    </entrytbl>
+                    <entry>1</entry>
+                </row>
+                <row><entry>16</entry><entry>4</entry><entry>
+                    <!-- <link linkend="mpeg.bitrate_index_table">比特率索引表</link> -->
+                    详见：<xref linkend="mpeg.bitrate_index_table" />
+                    </entry><entry>1001</entry>
+                </row>
+                    
+                <row><entry>20</entry><entry>2</entry><entry>
+                    <!-- <link linkend="mpeg.samplerate_index_table">采样率索引表</link> -->
+                    详见：<xref linkend="mpeg.samplerate_index_table" />
+                    </entry><entry>11</entry>
+                </row>
+                <row><entry>22</entry><entry>1</entry><entry>填充位。如果设置了此位，就会对每帧数据填充一个slot (对于帧大小的计算很重要)</entry><entry>0</entry></row>
+                <row><entry>23</entry><entry>1</entry><entry>私有位 (仅用于标示性的)</entry><entry>1</entry></row>
+                <row><entry>24</entry><entry>2</entry>
+                
+                    <entrytbl cols="2" align="center">
+                        <?dbhtml table-width="90%" ?><?dbfo table-width="90%" ?>
+                        <colspec colnum="1" colname="col1" colwidth="1*"/>
+                        <colspec colnum="2" colname="col2" colwidth="10*"/>
+                        <thead>
+                            <row><entry namest="col1" nameend="col2" align="center">声道的模式</entry></row>
+                        </thead>
+                      <tbody>
+                        <row><entry>00</entry><entry>立体声</entry></row>
+                        <row><entry>01</entry><entry>混合立体声</entry></row>
+                        <row><entry>10</entry><entry><xref linkend="channel_mode"/>(两个单声道)</entry></row>
+                        <row><entry>11</entry><entry>一个声道 (单声道)</entry></row>
+                      </tbody>
+                    </entrytbl>
+                                                                                <entry>01</entry></row>
+                <row><entry>26</entry><entry>2</entry><entry>模式扩展 (仅用于联合立体声) （注：此处不是本文重点，故忽略相关的索引表）</entry><entry>00</entry></row>
+          </tbody>
+        </tgroup>
+    </table>
+    <tip id="channel_mode" xreflabel="双声道">
+        <title>双声道</title>
+        双声道文件由两个独立的单声道所组成。大多数解码器把双声道输出成立体声，但是实际上，不是所有的双声道都是立体声的。
+    </tip>
+    
+    <table id="mpeg.bitrate_index_table" align="center">
+        <title>MPEG比特率索引表（单位：Kbit/s）</title>
+        <tgroup cols="6">
+        <colspec colnum="1" colname="col1" colwidth="1*"/>
+        <colspec colnum="2" colname="col2" colwidth="1*"/>
+        <colspec colnum="3" colname="col3" colwidth="1*"/>
+        <colspec colnum="4" colname="col4" colwidth="1*"/>
+        <colspec colnum="5" colname="col5" colwidth="1*"/>
+        <colspec colnum="6" colname="col6" colwidth="1*"/>
+        
+        <thead>
+            <row>
+                <entry morerows="1" valign="middle">比特率索引</entry>
+                <entry namest="col2" nameend="col4" align="center"><emphasis>MPEG 1</emphasis></entry>
+                <entry namest="col5" nameend="col6" align="center">MPEG 2, 2.5 (LSF)</entry>
+            </row>
+            <row><entry colname="col2">Layer I</entry><entry>Layer II</entry><entry><emphasis>Layer III</emphasis></entry><entry>Layer I</entry><entry>Layer II &amp; III</entry></row>
+        </thead>
+        
+        <tbody>
+            <row><entry>0000</entry><entry namest="col2" nameend="col6">空闲</entry></row>
+            <row><entry>0001</entry><entry>32</entry><entry>32</entry><entry>  <emphasis>32 </emphasis></entry><entry>32</entry><entry>8</entry></row>
+            <row><entry>0010</entry><entry>64</entry><entry>48</entry><entry>  <emphasis>40 </emphasis></entry><entry>48</entry><entry>16</entry></row>
+            <row><entry>0011</entry><entry>96</entry><entry>56</entry><entry>  <emphasis>48 </emphasis></entry><entry>56</entry><entry>24</entry></row>
+            <row><entry>0100</entry><entry>128</entry><entry>64</entry><entry> <emphasis>56 </emphasis></entry><entry>64</entry><entry>32</entry></row>
+            <row><entry>0101</entry><entry>160</entry><entry>80</entry><entry> <emphasis>64 </emphasis></entry><entry>80</entry><entry>40</entry></row>
+            <row><entry>0110</entry><entry>192</entry><entry>96</entry><entry> <emphasis>80 </emphasis></entry><entry>96</entry><entry>48</entry></row>
+            <row><entry>0111</entry><entry>224</entry><entry>112</entry><entry><emphasis>96 </emphasis></entry><entry>112</entry><entry>56</entry></row>
+            <row><entry>1000</entry><entry>256</entry><entry>128</entry><entry><emphasis>112</emphasis></entry><entry>128</entry><entry>64</entry></row>
+            <row><entry>1001</entry><entry>288</entry><entry>160</entry><entry>&bgcolor_red;<emphasis>128</emphasis></entry><entry>144</entry><entry>80</entry></row>
+            <row><entry>1010</entry><entry>320</entry><entry>192</entry><entry><emphasis>160</emphasis></entry><entry>160</entry><entry>96</entry></row>
+            <row><entry>1011</entry><entry>352</entry><entry>224</entry><entry>&bgcolor_red;<emphasis>192</emphasis></entry><entry>176</entry><entry>112</entry></row>
+            <row><entry>1100</entry><entry>384</entry><entry>256</entry><entry><emphasis>224</emphasis></entry><entry>192</entry><entry>128</entry></row>
+            <row><entry>1101</entry><entry>416</entry><entry>320</entry><entry><emphasis>256</emphasis></entry><entry>224</entry><entry>144</entry></row>
+            <row><entry>1110</entry><entry>448</entry><entry>384</entry><entry>&bgcolor_red;<emphasis>320</emphasis></entry><entry>256</entry><entry>160</entry></row>
+            <row><entry>1111</entry><entry namest="col2" nameend="col6">空闲</entry></row>
+        </tbody>
+        </tgroup>
+    </table>
+    <tip>
+        <title>常见MP3的比特率</title>
+        <para><emphasis>强调</emphasis>部分：就是我们此处所关心的MP3（MPEG-1，Layer III）的比特率。</para>
+        <para><emphasis>红色</emphasis>部分：即128kbps，192kbps，320kbps等，就是我们常见的MP3的比特率。</para>
+    </tip>
+    
+    <table id="mpeg.samplerate_index_table" align="center">
+        <title>MPEG帧的采样率索引表（单位：Hz）</title>
+        <tgroup cols="4">
+        <colspec colnum="1" colname="col1" colwidth="1*"/>
+        <colspec colnum="2" colname="col2" colwidth="1*"/>
+        <colspec colnum="3" colname="col3" colwidth="1*"/>
+        <colspec colnum="4" colname="col4" colwidth="1*"/>
+        <thead>
+            <row><entry>采样率索引</entry><entry>MPEG 1</entry><entry>MPEG 2 (LSF)</entry><entry>MPEG 2.5 (LSF)</entry></row>
+        </thead>
+        <tbody>
+            <row><entry>00</entry><entry><emphasis>44100 Hz</emphasis></entry><entry>22050 Hz</entry><entry>11025 Hz</entry></row>
+            <row><entry>01</entry><entry>48000 Hz</entry><entry>24000 Hz</entry><entry>12000 Hz</entry></row>
+            <row><entry>10</entry><entry>32000 Hz</entry><entry>16000 Hz</entry><entry>8000 Hz</entry></row>
+            <row><entry>11</entry><entry namest="col2" nameend="col4">空闲</entry></row>
+        </tbody>
+        </tgroup>
+    </table>
+    <tip>
+        <title>常见MP3采样率</title>
+        <para><emphasis>强调</emphasis>部分：就是我们最常见的MP3（MPEG-1）的采样率44100Hz=44.1K Hz</para>
+    </tip>
+    <para></para>
+    <para>从上面MPEG帧头的格式中可以看出，MPEG的音频，都是有相对固定的比特率，采样率等参数，关于这每一帧的这些参数的具体值，都是找到索引值，然后查对应的索引表，而得知具体的值。</para>
+    <para>不过，顺便提一点，在MPEG标准中，也描述了一种自由格式（free format），这种自由格式意思为用一个固定比特率对文件进行编码，而此固定的比特率不是我们那些索引表中所预定义好的。对于这类自由格式的MPEG音频，一般的解码器都无法解码。</para>
+    
+    <sect2><title>举例说明MPEG帧头的含义</title>
+        <para>下图给出了一般MP3的格式及举例说明了MPEG的帧头所对应的信息：</para>
+        <figure><title>MPEG帧头含义举例</title>
+            <mediaobject>
+                <imageobject role="html">
+                    <imagedata fileref="images/mpeg_header.png" align="center" scalefit="1" width="100%" />
+                </imageobject>
+                <imageobject role="fo">
+                    <imagedata fileref="images/mpeg_header.png" align="center" scalefit="1" width="100%"/>
+                </imageobject>
+            </mediaobject>
+        </figure>
+    </sect2>
+</sect1>
+
+<sect1><title>MPEG音频数据</title>
+    <para>MPEG帧，除了开始部分的MPEG帧头外，余下的就是MPEG的音频数据。</para>
+    <para>需要注意的，MP3中的帧，是MPEG帧，其中的音频数据部分，是经过MP3的相关算法压缩后的数据，而不是原始采样过来的数据。</para>
+    <para>MPEG音频数据部分，包含了<emphasis>固定数目</emphasis>的 音频采样（Audio Sample）。</para>
+    <para>其中关于采样个数：</para>
+    <para>MPEG的不同规范（MPEG-1/2/3），以及同一规范中不同的Layer(Layer I/II/III)，每一帧所对应的采样数，都是固定的，其具体的值参见下表：</para>
+    
+    <table id="mpeg.samplenum_index_table" align="center">
+        <title>MPEG帧的采样数索引表（单位：个/帧）</title>
+        <tgroup cols="4">
+        <colspec colnum="1" colname="col1" colwidth="1*"/>
+        <colspec colnum="2" colname="col2" colwidth="1*"/>
+        <colspec colnum="3" colname="col3" colwidth="1*"/>
+        <colspec colnum="4" colname="col4" colwidth="1*"/>
+        <thead>
+            <row><entry> </entry><entry>MPEG 1</entry><entry>MPEG 2 (LSF)</entry><entry>MPEG 2.5 (LSF)</entry></row>
+        </thead>
+        <tbody>
+            <row><entry>Layer I</entry><entry>384</entry><entry>384</entry><entry>384</entry></row>
+            <row><entry>Layer II</entry><entry>1152</entry><entry>1152</entry><entry>1152</entry></row>
+            <row><entry>Layer III</entry><entry><emphasis>1152</emphasis></entry><entry>576</entry><entry>576</entry></row>
+        </tbody>
+        </tgroup>
+    </table>
+    <tip>
+        <title>常见MP3每帧采样数</title>
+        <para><emphasis>强调</emphasis>部分：就是我们此处所关心的，MPEG-1，Layer III，即MP3，不论是CBR还是VBR，文件中的每一帧，其采样的个数/采样数，都是固定的<emphasis>1152</emphasis>个。</para>
+    </tip>
+    <para>而后面要介绍如何计算VBR MP3的播放时间，正是基于此前提：</para>
+    <para><emphasis>MP3，即MPEG-1，Layer III，不论是CBR，还是VBR，每一帧的采样个数都是固定的1152个。即每一帧，都是固定的1152个采样。</emphasis></para>
+    <para>同时，我们还要注意另外一点，那就是对于被某个编码器将原始音频数据编码为MP3数据后，得到的MP3文件，对于此单个文件，其采样率，始终都是一样的。也就是说，如果解析MP3的第一帧MPEG头得到的采样率是44100Hz的话，那么此MP3文件后面的所有的帧的采样率，也肯定都是44100Hz，即这个采样率，对于同一个MP3文件来说，是固定的。</para>
+    <para>于此相对的是，VBR中的Variable Bitrate，中的Variable，可变的，指的是，变化的比特率，而不是采样率。</para>
+    <para>总结一下就是：</para>
+    <para><emphasis>CBR和VBR中的固定和可变，都是指的是比特率Bitrate，而不是采样率Sample Rate。对于同一MP3文件，不论CBR还是VBR，采样率都是固定的。</emphasis></para>
+    <para>因为该采样率对应着此MP3被编码器编码的那一时刻，编码器的采样率也是最开始时候就设置好，并且之后不会再变化（除了你重新录制另外一个MP3文件）。</para>
+    <para>关于这个知识点，一定要搞清楚，否则就会出现我最开始遇到的情况，以为VBR的采样率也是变化的，导致别人问我那么是不是意味着对VBR MP3解码，每一帧都要重新设置解码器的采样率，如果回答是，那mplayer等常见解码器的代码实现中，没看到对应设置，只看到了最开始解码MP3时候，只设置一次其采样率，其后解码每一帧，都是没有重新设置采样率的。而实际结果是，VBR变化的只是比特率，采样率是固定的，所以只需要在解码MP3最开始的时候设置一次即可。</para>
+</sect1>
+
+<sect1><title>MPEG帧的大小</title>
+    <para>前面已经解释了，MPEG帧= 帧头 + 数据。</para>
+    <para>下面来看看，MPEG的帧的大小，即帧头的大小，加上帧数据的大小。</para>
+    <para>解释MPEG帧大小之前，先要介绍个名词：Slot，槽。</para>
+    <para>MPEG帧，由一个个的Slot（槽）组成。</para>
+    <para>Layer I中，一个Slot是4个字节；</para>
+    <para>Layer II和Layer III中，一个Slot是一个字节。</para>
+    <para>所以，此处可以简单的理解为：</para>
+    <para>MPEG的Layer III中，帧是有一个个字节所组成。（是不是听起来像句废话，^_^）</para>
+    <para></para>
+    <para>好了，知道了此处MPEG的Layer III的帧的基本单位为字节之后，我们再来看看帧的大小是多少。</para>
+    <para>首先，帧头，不用多说，都是前面提到的，固定的32比特=4字节。</para>
+    <para>其次要好好解释一下MPEG帧的音频数据的大小，可用如下公式计算：</para>
+
+    <equation xml:id="eq.frame.data.size">
+        <title>Frame Data Size</title>
+        <mathphrase>
+        <para>Frame_Data_Size</para>
+        <para>= Audo_Data_Size + Frame_Padding_Size</para>
+        <para>= Frame_Time * Frame_Bitrate + Frame_Padding_Size</para>
+        <para>= (Sample_Number * Time_per_Sample) * Frame_Bitrate + Frame_Padding_Size</para>
+        <para>= (Sample_Number * (1/Sample_Rate)) * Frame_Bitrate + Frame_Padding_Size</para>
+        </mathphrase>
+    </equation>
+
+    <equation xml:id="eq.frame.data.size_cn">
+        <title>帧数据大小</title>
+        <mathphrase>
+        <para>帧数据大小</para>
+        <para>= 音频数据大小 + 帧的填充大小</para>
+        <para>= 帧的时长 * 帧的比特率 + 帧的填充大小</para>
+        <para>= （采样个数 * 每一采样的时长）* 帧的比特率 + 帧的填充大小</para>
+        <para>= （采样个数 * （1 / 采样率））* 帧的比特率 + 帧的填充大小</para>
+        </mathphrase>
+    </equation>
+
+    <para>其中：</para>
+    <orderedlist numeration="arabic">
+        <listitem>帧的填充大小：<para>对于MPEG的Layer III来说，单位就是字节，不够8bit一个字节的话，添加padding对应的bit，凑够一个字节。所以，具体padding几个bit，要看每一帧的数据的bit是否是8的倍数，如果本身是8的倍数，那么padding就是0，如果不是，根据具体情况决定补齐几个bit。</para></listitem>
+        <listitem>采样个数：<para>对于MP3，即MPEG-1，Layer III来说，不论CBR还是VBR，每一帧采样个数都是固定的1152个。</para></listitem>
+        <listitem>采样率：<para>对于MP3，即MPEG-1，Layer III来说，不论CBR还是VBR，对于单个MP3文件来说，也是固定的，每一帧采样率，都是一样的。采样率是多少，通过解析第一帧，即可得知所有帧的采样率。</para></listitem>
+        <listitem>帧的比特率：
+            <orderedlist numeration="upperalpha">
+                <listitem>CBR：<para>每一帧都是一样的。通过解析第一帧即可得知其他所有帧的比特率。</para></listitem>
+                <listitem>VBR：<para>每一帧都不同，所以要针对每一帧具体解析帧头，才能得知每一帧的比特率具体是多少。</para></listitem>
+            </orderedlist>
+        </listitem>
+    </orderedlist>
+    
+    <sect2><title>常见MPEG帧的音频数据大小是418字节</title>
+        <para>最后
+            <inlinemediaobject>
+                <imageobject><imagedata fileref="images/example.jpg"/></imageobject>
+                <textobject><phrase>举个栗子</phrase></textobject>
+            </inlinemediaobject>
+            来说明，
+        </para>
+        <para>以常见的采样率为44100 Hz，比特率为128kbps的CBR的MP3来计算：</para>
+        <para>帧数据大小</para>
+        <para>= （采样个数 * （1 / 采样率））* 帧的比特率 + 帧的填充大小</para>
+        <para>= （1152 * （1/44100 Hz））* 128kbps + 填充大小</para>
+        <para>= 3343.7 比特 + 填充大小</para>
+        <para>= 417.959字节 + 填充大小</para>
+        <para>= 418 字节</para>
+        <para>对应的MPEG帧大小为：</para>
+        <para>MPEG帧大小</para>
+        <para>= 帧头 + 帧数据</para>
+        <para>= 4 + 418</para>
+        <para>= 422字节</para>
+        <para>而对于VBR的帧的大小，就不是能这么简单计算出来的了。</para>
+        <para>因为VBR是每一帧的比特率都是变化的，所以对于每一帧的大小，都先要解析每一帧的帧头，得到每一帧的比特率，然后才可以计算出来每个帧的大小。</para>
+        <para>另外提及一点，由于舍入误差，官方的计算帧大小的方法和此稍有不同。根据ISO标准，应该以slot为单位进行计算，然后对结果取整，再乘于slot的大小。</para>
+        <para>不过，我们此处计算的是MPEG的Layer III，本身slot就是一个字节，所以计算方法是对的。</para>
+        <para>如果计算的是Layer I，一个slot是4字节，就要先以4字节为单位进行计算，然后对结果取整，再乘于slot大小，即再乘于4字节。</para>
+    </sect2>
+</sect1>
+
+</chapter>

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE preface>
+
+<preface xmlns="http://docbook.org/ns/docbook"
+    xml:id="preface"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+    
+<title>正文之前</title>
+
+<section><title>声明</title>
+    <para>本文所写内容，多数整理自互联网，版权归原作者所有</para>
+    <para>笔者知识有限，文中难免有误，欢迎批评指正，admin (at) crifan.com</para>
+    <para>觉得此文对你有帮助，想要发邮件来感谢的，也欢迎哈，^_^</para>
+    <para>欢迎盗版，盗版不究，但请转载时注明原作者</para>
+</section>
+
+<section><title>此文目的</title>
+    <para>了解MPEG相关知识</para>
+    <para>了解MP3的常见术语的含义</para>
+    <para>详解VBR MP3的帧头格式及含义</para>
+    <para>搞懂如何去计算CBR和VBR的MP3文件的播放时间（duration）</para>
+</section>
+</preface>

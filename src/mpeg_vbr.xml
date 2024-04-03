@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE book
+[
+
+<!ENTITY cur_book_name      "mpeg_vbr" >
+<!ENTITY publish_date       "2012-08-09" >
+<!ENTITY release_version    "1.6" >
+
+<!ENTITY copyrith_year "2012" >
+<!ENTITY entity_common_multi_format     SYSTEM  "../../entity_common_multi_format.xml">
+<!ENTITY entity_common_publish_info     SYSTEM  "../../entity_common_publish_info.xml">
+]>
+
+<book version="5.0"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    xml:lang="zh_CN"
+>
+
+<info>
+    <title>MPEG简介 + 如何计算CBR和VBR的MP3的播放时间</title>
+    <subtitle></subtitle>
+    <keywordset>
+        <keyword>MPEG</keyword>
+        <keyword>MP3</keyword>
+        <keyword>CBR</keyword>
+        <keyword>VBR</keyword>
+        <keyword>播放时间</keyword>
+    </keywordset>
+
+    <abstract>
+        <para>本文主要介绍了MPEG相关的一些基础知识，MP3中常见的术语，以及XING和VBRI头的简介，然后介绍如何计算CBR和VBR的MP3播放时间，最后总结了关于MP3的一些常见的数据的来源。</para>
+        &entity_common_multi_format;
+    </abstract>
+
+    <revhistory>
+        <revision>
+            <revnumber>1.0</revnumber>
+            <date>2009-09-19</date>
+            <revremark>
+                <orderedlist>
+                    <listitem>简介MPEG相关知识</listitem>
+                    <listitem>详细介绍如何计算CBR和VBR的MP3的播放时间</listitem>
+                </orderedlist>
+            </revremark>
+            <authorinitials>crl</authorinitials>
+        </revision>
+        <revision>
+            <revnumber>1.4</revnumber>
+            <date>2011-04-24</date>
+            <revremark>
+                <orderedlist>
+                    <listitem>修正了VBR播放时间的计算公式（原中文说明部分有误）</listitem>
+                    <listitem>添加了一些MP3相关的知识点的解释</listitem>
+                    <listitem>调整了排版格式</listitem>
+                </orderedlist>
+            </revremark>
+            <authorinitials>crl</authorinitials>
+        </revision>
+        <revision>
+            <revnumber>1.5</revnumber>
+            <date>2011-07-02</date>
+            <revremark>
+                <orderedlist>
+                    <listitem>详解两种CBR播放时间的计算公式</listitem>
+                </orderedlist>
+            </revremark>
+            <authorinitials>crl</authorinitials>
+        </revision>
+        <revision>
+            <revnumber>&release_version;</revnumber>
+            <date>&publish_date;</date>
+            <revremark>
+                <orderedlist>
+                    <listitem>通过Docbook发布</listitem>
+                </orderedlist>
+            </revremark>
+            <authorinitials>crl</authorinitials>
+        </revision>
+    </revhistory>
+
+    &entity_common_publish_info;
+</info>
+
+<xi:include href="preface.xml"/>
+<xi:include href="ch01_mpeg_related.xml"/>
+<xi:include href="ch02_mp3_term.xml"/>
+<xi:include href="ch03_mpeg_frame.xml"/>
+<xi:include href="ch04_xing_vbri.xml"/>
+<xi:include href="ch05_calc_duration.xml"/>
+<xi:include href="ch06_mp3_related.xml"/>
+<xi:include href="ch07_after_content.xml"/>
+<xi:include href="reference.xml"/>
+
+</book>

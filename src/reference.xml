@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<bibliography xmlns="http://docbook.org/ns/docbook"
+    xml:id="reference"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+
+<bibliomixed id="ref.mpeg_audio_frame_header">
+  <abbrev>MPEG Audio Frame Header</abbrev>
+  <bibliosource><ulink url="http://www.codeproject.com/KB/audio-video/mpegaudioinfo.aspx">MPEG Audio Frame Header （登陆该页面后，有源码和程序供下载）</ulink></bibliosource>
+  <author>Konrad Windszus</author>
+</bibliomixed>
+
+<bibliomixed id="ref.mplayer_patch">
+  <abbrev>MPlayer-1.0rc1 和 MPlayer-1.0rc2 的VBR patch</abbrev>
+  <bibliosource><ulink url="http://www.crifan.com/mplayer-10rc1_and_mplayer-10rc2_fixed_the_vbr_patch_mad_play_vbr_mp3_player_displays_the_total_length_of_the_problem/">MPlayer-1.0rc1 和 MPlayer-1.0rc2 的VBR patch【已修复mad播放VBR MP3播放总时长显示问题】</ulink></bibliosource>
+  <author>Crifan Li</author>
+</bibliomixed>
+
+<bibliomixed id="ref.mpeg_audio_frame_header_mp3_format">
+  <abbrev>MPEG AUDIO FRAME HEADER (mp3 format)</abbrev>
+  <bibliosource><ulink url="http://www.datavoyage.com/mpgscript/mpeghdr.htm">MPEG AUDIO FRAME HEADER (mp3 format)</ulink></bibliosource>
+  <author>Predrag Supurovic</author>
+</bibliomixed>
+
+<bibliomixed id="ref.mpeg_audio_layer_i_ii_iii">
+  <abbrev>MPEG Audio Layer I/II/III frame header</abbrev>
+  <bibliosource><ulink url="http://www.mp3-tech.org/programmer/frame_header.html">MPEG Audio Layer I/II/III frame header</ulink></bibliosource>
+  <author>Gabriel Bouvigne</author>
+</bibliomixed>
+
+<bibliomixed id="ref.mp3_profi_info">
+  <abbrev>MP3 Profi Info</abbrev>
+  <bibliosource><ulink url="http://www.goat.cz/index.php?path=MP3_MP3ProfiInfo">MP3 Profi Info</ulink></bibliosource>
+  <author>www.goat.cz</author>
+</bibliomixed>
+
+<bibliomixed id="ref.mp3_tech">
+  <abbrev>MP3 Tech</abbrev>
+  <bibliosource><ulink url="http://www.mp3-tech.org/">MP3 Tech</ulink></bibliosource>
+  <author>mp3-tech.org</author>
+</bibliomixed>
+
+<bibliomixed id="ref.mpc_play_vbr_mp3_time_issue">
+  <abbrev>Media Player Classic播放VBR的MP3时的时间问题</abbrev>
+  <bibliosource><ulink url="http://xialulee.spaces.live.com/blog/cns!4ee324c8acfa82db!230.entry?wa=wsignin1.0&amp;sa=835890451">Media Player Classic播放VBR的MP3时的时间问题</ulink></bibliosource>
+  <author>xialulee</author>
+</bibliomixed>
+
+<bibliomixed id="ref.what_is_mp3">
+  <abbrev>什么是MP3</abbrev>
+  <bibliosource><ulink url="http://wenwen.soso.com/z/q140151046.htm">什么是MP3</ulink></bibliosource>
+  <author>Ruth</author>
+</bibliomixed>
+
+<bibliomixed id="ref.variable_bitrate">
+  <abbrev>Variable bitrate</abbrev>
+  <bibliosource><ulink url="http://en.wikipedia.org/wiki/Variable_bitrate">Variable bitrate</ulink></bibliosource>
+  <author>wikipedia.org</author>
+</bibliomixed>
+
+<bibliomixed id="ref.mpeg_audio_compression_basics">
+  <abbrev>MPEG Audio Compression Basics</abbrev>
+  <bibliosource><ulink url="http://www.datavoyage.com/mpgscript/mpeghdr.htm">MPEG Audio Compression Basics</ulink></bibliosource>
+  <author>Predrag Supurovic</author>
+</bibliomixed>
+
+<bibliomixed id="ref.id3_tag_version_2">
+  <abbrev>ID3 tag version 2</abbrev>
+  <bibliosource><ulink url="http://id3.org/id3v2-00">ID3 tag version 2</ulink></bibliosource>
+  <author>DanONeill</author>
+</bibliomixed>
+
+<bibliomixed id="ref.mp3">
+  <abbrev>MP3</abbrev>
+  <bibliosource><ulink url="http://en.wikipedia.org/wiki/MP3">MP3</ulink></bibliosource>
+  <author>wikipedia.org</author>
+</bibliomixed>
+
+<bibliomixed id="ref.mp3_tag">
+  <abbrev>Mp3tag</abbrev>
+  <bibliosource><ulink url="http://zh.wikipedia.org/zh/Mp3tag">Mp3tag</ulink></bibliosource>
+  <author>wikipedia.org</author>
+</bibliomixed>
+
+<bibliomixed id="ref.cbr_vbr_and_bit_reservoir">
+  <abbrev>CBR, VBR and bit reservoir</abbrev>
+  <bibliosource><ulink url="http://www.hydrogenaudio.org/forums/lofiversion/index.php/t50345.html">CBR, VBR and bit reservoir</ulink></bibliosource>
+  <author>halb27</author>
+</bibliomixed>
+
+<bibliomixed id="ref.diff_between_abr_and_vbr">
+  <abbrev>Difference Between ABR and VBR</abbrev>
+  <bibliosource><ulink url="http://www.differencebetween.net/technology/difference-between-abr-and-vbr/">Difference Between ABR and VBR</ulink></bibliosource>
+  <author>differencebetween.net</author>
+</bibliomixed>
+
+</bibliography>

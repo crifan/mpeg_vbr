@@ -1,0 +1,288 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+]>
+
+<chapter 
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch04_xing_vbri"
+    >
+<title>MP3的播放时间的计算公式及XING和VBRI头介绍</title>
+
+<sect1><title>CBR的MP3的播放时间(duration)计算方法</title>
+    <sect2><title>计算CBR的MP3的播放时间的方法之一</title>
+        <para>对于计算CBR的MP3的播放时间，其是Constant Bitrate，固定的比特率，每一帧的比特率也都是固定的同样的大小，所以，相对来说，很容易想得到，用文件大小，直接除于比特率，就可以得到文件的播放时间了，即就用如下公式可以计算MP3的播放时间：</para>
+        <equation xml:id="eq.cbr_duration"><title>CBR播放时间（CBR Duration）</title>
+            <mathphrase>
+                <para>CBR Duration</para>
+                <para>= File Size(Byte) × 8 bit/Byte ÷ （Bitrate（K bit/s）× 1000 bit/Kbit ）</para>
+                <para>CBR播放时间</para>
+                <para>= 文件大小（字节）× 8比特/字节 ÷（比特率 千比特/秒 ×1000 比特/千比特）</para>
+            </mathphrase>
+        </equation>
+        <para>其中：</para>
+        <orderedlist numeration="arabic">
+            <listitem>文件大小：
+                <para>严格地说，应该是MP3的文件总大小，减去MP3的Tag的大小，即</para>
+                <para><emphasis>文件大小 = 总的MP3文件大小 – MP3的Tag大小</emphasis></para>
+                <para>其中，MP3的Tag，往往和MP3文件总大小相比，几乎可以忽略不计，所以，一般也可以直接用总的MP3为文件大小，直接来计算：</para>
+                <para><emphasis>文件大小 = 总的MP3文件大小</emphasis></para>
+            </listitem>
+            <listitem>比特率：<para>可以通过解析MP3文件的第一帧的MPEG的帧头，得到比特率的索引值，然后查比特率索引表，即可得到比特率是多少。</para></listitem>
+        </orderedlist>
+        <para>所以，可以看出，对于CBR的文件，可以用上面的公式，获得MP3文件大小后，再去解析第一帧的MPEG帧头，得到比特率索引值，查表得到比特率的值，然后就算出整个CBR MP3文件的播放时间。</para>
+    </sect2>
+    
+    <sect2><title>计算CBR的MP3的播放时间的方法之二</title>
+        <para>另外，多说一句，我原先以为，还有另外一种计算方法，即：</para>
+        <para><emphasis>“总帧数乘于每一帧的时长法”</emphasis></para>
+        <para><emphasis>总的时长 = 每一帧的时长 * 总的帧数</emphasis></para>
+        <para>就是先计算每一帧的时间长度，再计算一共有多少帧，然后将两者相乘，即可得到文件总时长。</para>
+        <para>其中：</para>
+        <para><emphasis>= 每一帧的采样个数 * 每一采样的时长</emphasis></para>
+        <para><emphasis>= 每一帧的采样个数 * （1 / 每一帧的采样频率）</emphasis></para>
+        <para>而</para>
+        <para><emphasis>总的帧数</emphasis></para>
+        <para><emphasis>= 文件大小 / 单个帧的大小</emphasis></para>
+        <para><emphasis>= 文件大小（字节）*  8比特/字节 / （（每个帧的时长 * 比特率（千比特/秒） * 1000比特/千比特））</emphasis></para>
+        <para>但是后来发现，上面这个计算总的帧数的方法，其实是不精确的，是把每一帧的4字节的MPEG帧头漏掉了。</para>
+        <para>因此，才会有之前的想法，认为这两种计算CBR的MP3的播放时间的计算公式是同一种：</para>
+        <quote>
+            <para>此法，其实和上面的是同一个方法，因为上面两个等式相乘之后，即为：</para>
+            <para>总的时长</para>
+            <para>= 每一帧的时长 * 总的帧数</para>
+            <para>=每一帧的时长 * [总的文件大小（字节）*  8比特/字节 / （ （每个帧的时长 * 比特率（千比特/秒） * 1000比特/千比特） ）]</para>
+            <para>= [总的文件大小（字节）*  8比特/字节 / [ 比特率 千比特/秒 * 1000比特/千比特）]</para>
+            <para>还是和上面的方法是，是同一个公式。</para>
+        </quote>
+        <para>而对于上面的总的帧数的计算方法，真正正确的是：</para>
+        <para><emphasis>总的帧数</emphasis></para>
+        <para><emphasis>= 文件大小 ÷ 单个帧的大小</emphasis></para>
+        <para><emphasis>= 文件大小 ÷ （帧头 + 帧数据）</emphasis></para>
+        <para><emphasis>= 文件大小 ÷ （固定的4字节 + 帧数据）</emphasis></para>
+        <para><emphasis>= 文件大小（字节）×  8比特/字节  ÷ （ 4 + [ 每个帧的时长 × 比特率（千比特/秒）× 1000（比特/千比特）] ）</emphasis></para>
+        <para></para>
+        <para>方法二，即为：</para>
+        <para><emphasis>CBR播放时间</emphasis></para>
+        <para><emphasis>= 每一帧的时长 × 总的帧数</emphasis></para>
+        <para><emphasis>= （每一帧的采样个数 ×（1 / 每一帧的采样频率））×（ 文件大小（字节）×  8比特/字节  ÷ （ 4 + [ 每个帧的时长 × 比特率（千比特/秒）× 1000（比特/千比特）] ） ）</emphasis></para>
+        <para><emphasis>= 文件大小（字节）× （ 4 + （每一帧的采样个数÷每一帧的采样频率）× 比特率（千比特/秒）× 1000（比特/千比特）÷ 8比特/字节] ））×（每一帧的采样个数÷每一帧的采样频率）</emphasis></para>
+        <para>其中：</para>
+        <para>文件大小：是总的MP3文件大小，减去MP3的Tag的大小。</para>
+    </sect2>
+    
+    <sect2><title>计算CBR的MP3的播放时间的两种方法的总结</title>
+        <para>也因此，最开始的原以为的第二种方法，和第一种，是同一种的想法，其实是错误的。正确的理解是，第二种方法的确是另外一个方法，而且更准确。</para>
+        <para>因为第一种方法：</para>
+        <para><emphasis>CBR播放时间</emphasis></para>
+        <para><emphasis>= 文件大小（字节）× 8比特/字节 ÷（比特率 千比特/秒 ×1000 比特/千比特）</emphasis></para>
+        <para>中的比特率，只是针对每一帧的音频的数据的，而并不包括4字节的帧头，而（参见上面的解释）：“常见MPEG帧的音频数据大小是418字节”，所以，这样比较起来，至少是，没418+4=422的这一个帧，其中只有418个是真正的音频数据，而比特率，指的只是这个帧数据的比特率，并不包括4字节的帧头，如果也包含进去了，那么则产生了误差，误差大概是4/(418+4)=0.95%，即大概是百分之一的误差。</para>
+        <para>即，方法一，计算出来的CBR的播放时间，大概有1%的误差。</para>
+        <para></para>
+        <para>而第二种方法：</para>
+        <para><emphasis>CBR播放时间</emphasis></para>
+        <para><emphasis>= 每一帧的时长 × 总的帧数</emphasis></para>
+        <para><emphasis>= 文件大小（字节）× （ 4 + （每一帧的采样个数÷每一帧的采样频率）× 比特率（千比特/秒）× 1000（比特/千比特）÷ 8比特/字节] ） ）×（每一帧的采样个数÷每一帧的采样频率）</emphasis></para>
+        <para>就把每一帧的4字节的帧头，也计算进去了，好处是计算出来的播放时间更加精确，坏处是，计算起来，相对第一种方法来说，比较麻烦。</para>
+        <para>而第一种方法，虽然有大概1%的误差，但是很容易计算。所以现实中，常用第一种方法。</para>
+        
+        <sect3><title>举例说明两种方法计算出结果的不同</title>
+            <para>我找了个CBR的MP3，用千千静听去查看其播放时间，推断出，其用的是第一种方法计算的。</para>
+            <para>具体推断过程如下：</para>
+            <para>（此处为了方便计算，忽略了MP3的Tag的大小，而把整个文件大小看作是MP3的所有帧的总大小）</para>
+            <para>该MPEG 1- Layer III的MP3：</para>
+            <para>文件大小=11777537 字节</para>
+            <para>采样个数：1152</para>
+            <para>采样率：44100Hz</para>
+            <para>比特率：96kbps</para>
+            <para>【方法一】</para>
+            <para><emphasis>总时长</emphasis></para>
+            <para><emphasis>= 11777537 × 8 ÷（96 × 1000）</emphasis></para>
+            <para><emphasis>= 981.46</emphasis></para>
+            <para>【方法二】</para>
+            <para><emphasis>总时长</emphasis></para>
+            <para><emphasis>= 11777537÷（4 + (1152÷44100）×(96×1000÷8) ）×(1152÷44100）</emphasis></para>
+            <para><emphasis>= 11777537÷（4 + 313.47）×0.02612</emphasis></para>
+            <para><emphasis>≈11777537÷（4 + 314）×0.02612</emphasis></para>
+            <para><emphasis>= 11777537÷318×0.02612</emphasis></para>
+            <para><emphasis>= 967.48</emphasis></para>
+            <para>即，方法二，是精确的MP3的总时长，为967.48，而方法一，计算出来的是有误差的981.46，误差为 (981.46-967.48)/ 967.48=1.34%，即大概为1%。</para>
+            <para>而千千静听查看到此MP3的播放时间为：16:20.454 = 980.454秒，</para>
+            <para>考虑到我们上面用方法一算出来的MP3的播放时间是981.46秒，是把MP3的Tag也算进去了，所以去掉Tag的大小，就是千千静听上看到的980.454秒了。</para>
+            <para>【总结】</para>
+            <para>因此，虽然方法二计算出来的播放时间更准确，但是实际上，为了更简便的计算，往往采用了误差大概只有1%，（一般用户也可以接受此误差），的第一种方法：</para>
+            <para><emphasis>CBR播放时间</emphasis></para>
+            <para><emphasis>= 文件大小（字节）× 8比特/字节 ÷（比特率 千比特/秒 ×1000 比特/千比特）</emphasis></para>
+        </sect3>
+    </sect2>
+</sect1>
+
+<sect1><title>VBR的MP3的播放时间(duration)计算方法</title>
+    <para>而对于VBR，由于每一帧的比特率都是变化的，所以计算起来就相对要复杂一些，下面就来详细介绍。</para>
+    <para>想要计算VBR的MP3的播放时间，总的来说，有两种方法：</para>
+    <sect2><title>平均比特率法</title>
+        <para>这个方法，就是和CBR同样的思路，对于VBR的MP3来说，假如也像CBR的MP3一样，也有个类似的每一帧都是固定的某个值的比特率，那么计算整个VBR的播放时间，也就可以用上面CBR一样的公式去计算了。</para>
+        <para>由此，就有了平均比特率的概念，即，将所有帧的比特率的值相加，得到一个总的比特率的值，然后除于总的帧数，就得到了一个平均比特率，这样，使得理论上，此VBR相当于一个比特率为该平均比特率的CBR了。</para>
+        <para>不过，可以看出，需要计算平均比特率之前，要先得到每一帧的比特率的值，以及总的帧的数目，然后才可以计算平均比特率的值。</para>
+        <para>而为了得到每一帧的比特率的值，就要将整个VBR MP3文件都遍历一遍，以此找到所有的帧，并解析每一个帧的帧头，得到比特率索引值，然后查表得到比特率的值。</para>
+        <para>如此做的话，效率显然很低。因为此处只是为了计算整个VBR MP3的播放时间，却要遍历整个文件，还要解析每一帧的帧头，显得很是得不偿失。</para>
+        <para>所以，就有了更好的，效率更高的，下面要介绍的另一种方法，来计算VBR MP3的播放时间。</para>
+        <para>另外，需要提醒的是，对于平均比特率来说，往往和第一帧的比特率相差很大。因为常见的MP3音乐的开头部分，即第一帧或者前几帧，多数是一些无声的数据，或者本身包含信息量很少，比特率很低的数据。因此，其意味着，如果解码器对于VBR文件，误解为CBR文件，按照CBR所有帧的比特率都相同的逻辑，去解析第一帧，得到一个比特率，然后用此比特率来计算整个文件的播放时间的话，那么往往计算出的播放时间和实际的相差很大。这也就是后面引用中一个帖子里面遇到的情况，即，Media Player Classic播放VBR的MP3时的时间问题。</para>
+    </sect2>
+    
+    <sect2><title>总帧数法</title>
+        <para>总帧数法，即利用总的帧的数目，来计算VBR的播放时间。</para>
+        <para>此方法的前提，是我们前面就强调过的：</para>
+        <orderedlist numeration="arabic">
+            <listitem><para><emphasis>MP3，即MPEG-1，Layer III，不论是CBR，还是VBR，每一帧的采样个数都是固定的1152个。即每一帧，都是固定的1152个采样。</emphasis></para></listitem>
+            <listitem><para><emphasis>CBR和VBR中的固定和可变，都是指的是比特率Bitrate，而不是采样率Sample Rate。对于同一MP3文件，不论CBR还是VBR，采样率都是固定的。</emphasis></para></listitem>
+        </orderedlist>
+        <para>了解了这两个前提后，就可以看出，对于VBR来说，虽然每一帧的比特率不同，但是每一帧的时间都是固定的，因为</para>
+        <para>每一帧的时间</para>
+        <para>= 该帧的采样个数 * 该帧的采样率</para>
+        <para>= 1152 * 采样率</para>
+        <para>其中：</para>
+        <orderedlist numeration="arabic">
+            <listitem>采样个数：<para>MPEG-1，Layer III，即MP3，不论是CBR还是VBR，都是固定的1152</para></listitem>
+            <listitem>采样率：<para>对于单个的VBR文件，都是统一的，固定的，常见的是44100Hz。采样率可以通过解析第一帧的帧头得出采样率索引，然后查表得到采样率。</para></listitem>
+        </orderedlist>
+        <para>既然知道了每一帧的时间都是固定的，那么很容易就想到，如果知道VBR MP3有一共多少帧，那么就可以用 总的帧数 × 每一帧的时间 = 总的时间长度了。</para>
+        <para>所以，剩下的事情，就是去得到VBR MP3的总的帧数。</para>
+        <para>最简单，但是效率很低的方法就是，像上面方法1一样，遍历整个VBR文件，找出一共有多少帧，对于第一帧，解析第一帧的帧头，得到采样率。</para>
+        <para>这样有了采样率和总的帧数，就可以用上面的解释的原理来计算了，对应公式就是：</para>
+
+        <equation xml:id="eq.vbr_duration"><title>VBR MP3总的时长（VBR Duration）</title>
+            <mathphrase>
+                <para><emphasis>VBR Duration</emphasis></para>
+                <para>= Total_Frame_Number * Time_Per_Frame</para>
+                <para>= Total_Frame_Number * （Sample_Number * Time_Per_Sample）</para>
+                <para><emphasis>= Total_Frame_Number * （Sample_Number * （1 / Frame_Sample_Rate））</emphasis></para>
+                <para></para>
+                <para><emphasis>VBR MP3总的时长</emphasis></para>
+                <para>= 总的帧数 * 单个帧的时长</para>
+                <para>= 总的帧数* （帧的采样个数 * 每个帧的时长）</para>
+                <para><emphasis>= 总的帧数* （帧的采样个数 * （1 / 帧的采样率））</emphasis></para>
+            </mathphrase>
+        </equation>
+        <para>其中：</para>
+        <orderedlist numeration="arabic">
+            <listitem>总的帧数：<para>VBR中的总的帧的数目。</para></listitem>
+            <listitem>帧的采样个数：<para>对于MP3（MPEG1，Layer III）来说，是固定的1152个采样。</para></listitem>
+            <listitem>帧的采样率：<para>通过解析第一帧，即可得知帧采样率索引，查表，即可得此采样率。</para></listitem>
+        </orderedlist>        
+        
+        <para>但是，可以看到，虽然此遍历整个文件以得到总的帧数的方法，但是还是显得效率不高。此处我们毕竟只是需要知道总的帧数而已，却还是要遍历文件。</para>
+        <para>对此问题，想象一下，要是有人在VBR的文件头部，单独提供了这个总的帧数，那么不就可以省去了我们再去遍历整个文件了吗？</para>
+        <para>而实际情况是，你所想到的事情，别人已经帮你实现了。^_^。</para>
+        <para>现实中，VBR文件中，就是已经有了对应的头Header，用于存放VBR相关的信息。</para>
+        <para>这样的头信息，也就是下面将要介绍的XING和VBRI。</para>
+    </sect2>
+    
+    <sect2 xml:id="vbr_xing_vbri"><title>VBR的两种Header：XING和VBRI</title>
+        <para>VBR的帧头，记录了和VBR相关的一些信息，至少包含了我们前面介绍的，用于方便我们计算VBR的播放时长的总的帧数。</para>
+        <para>VBR MP3的帧头，主要有两种类型，XING和VBRI。</para>
+        <para>此外，VBR的头中，往往还包含了一个用于定位的TOC（table of content）目录表。即用于在快进或快退的时候，通过表中的信息，可以方便地定位到对应的位置。如果没有此TOC表，需要单独去计算出对应的位置，比较麻烦。</para>
+        <para>关于它们的具体格式和含义，下面就对其进行详细解释。</para>
+
+        <sect3 xml:id="xing_header_tag"><title>Xing TAG / Xing头（header）</title>
+            <para>此tag由XING公司推出的算法/规范，所以叫做XING。</para>
+            <para>对于大多数的VBR文件都加了此头，但并不全是。此头位于MPEG音频头后面的某个特定位置（多数是0x24）。包含了此XING头的第一个帧，其后的数据是空的，所以即使解码器没有考虑到此头，也可以正常处理此帧。对于Layer III的文件来说，比如常见的MP3，此VBR放在边信息（side information）之后。</para>
+            <para>下表是XING头的具体格式及含义：</para>
+            
+            <table id="tbl.mpeg_xing_header_format" align="left"><title>XING 头的格式及含义</title>
+                <tgroup cols="4">
+                    <colspec colnum="1" colname="col1" colwidth="2*"/>
+                    <colspec colnum="2" colname="col2" colwidth="2*"/>
+                    <colspec colnum="3" colname="col3" colwidth="8*"/>
+                    <colspec colnum="4" colname="col4" colwidth="3*"/>
+                    <thead>
+                        <row><entry>位置（字节）</entry><entry>长度（字节）</entry><entry>含义</entry><entry>示例</entry></row>
+                    </thead>
+                    <tbody>
+                        <row><entry>0</entry><entry>4</entry><entry>4个ASCII字符的VBR头 ID，要么是Xing，要么是Info，无NULL结尾（普通字符串都以NULL,即\0结尾）</entry><entry>'Xing'</entry></row>
+                        <row><entry>4</entry><entry>4</entry>
+                            <entry><para>存放一个标志，用于表示接下来存在哪些域/字段,各字段逻辑或的结果：
+                                <informaltable>
+                                    <tgroup cols="2" >
+                                        <colspec colnum="1" colwidth="1*" />
+                                        <colspec colnum="2" colwidth="2*" />
+                                        <tbody>
+                                            <row><entry>0x0001</entry><entry>存在总帧数（Frames）字段</entry></row>
+                                            <row><entry>0x0002</entry><entry>存在文件大小（Bytes）字段</entry></row>
+                                            <row><entry>0x0004</entry><entry>存在TOC字段</entry></row>
+                                            <row><entry>0x0008</entry><entry>存在音频质量指示字段</entry></row>
+                                        </tbody>
+                                    </tgroup>
+                                </informaltable></para>
+                            </entry>
+                            <entry><para>0x0007 就表示下面存在：
+                                <simplelist type='vert' columns='1'>
+                                    <member>总帧数</member>
+                                    <member>文件大小总字节数</member>
+                                    <member>TOC表</member>
+                                </simplelist></para>
+                            </entry></row>
+                        <row><entry>8</entry><entry>4</entry><entry><emphasis>总帧数(Frames)</emphasis>，大端[可选]</entry><entry>7344</entry></row>
+                        <row><entry>8或12</entry><entry>4</entry><entry>文件总大小，单位字节，大端[可选]</entry><entry>45000</entry></row>
+                        <row><entry>8，12，16</entry><entry>100</entry><entry>TOC表，大端[可选]</entry><entry> </entry></row>
+                        <row><entry>8或12, 16, 108, 112 ，116</entry><entry>4</entry><entry>音频质量指示，最差0，最好100，大端[可选]</entry><entry>0</entry></row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <para>虽然知道了XING头的具体含义，可以去根据具体的值，解析出对应的含义了，但是，由于其是放在side information之后的，所以，要先定位，找到XING头，关于其位置，用如下公式计算：</para>
+            <equation xml:id="eq.xing_pos"><title>XING头位置</title>
+                <mathphrase>
+                    <para><emphasis>XING头位置</emphasis></para>
+                    <para>= MPEG头位置 +  MPEG帧头大小 + 边信息大小</para>
+                    <para><emphasis>= MPEG头位置 +  4字节        + 边信息大小</emphasis></para>
+                </mathphrase>
+            </equation>
+            <para>其中：</para>
+            <orderedlist numeration="arabic">
+                <listitem>MPEG头位置：<para>即通过程序去找到连续的11个bit都是1的位置，即可同步MPEG的帧，找到对应的MPEG头的开始处。</para></listitem>
+                <listitem>边信息大小：<para>详细信息，后面用到此公式时会具体解释。</para></listitem>
+            </orderedlist>
+            <para>根据头的格式，Xing头里面必须包含ID和flag这两个段。其他字段都是可选的，是否包含，要看flag的值。有时候这个Xing头，CBR里面也有，此时，前面的ID的值就是Info，而不是Xing了。</para>
+        </sect3>
+
+        <sect3 xml:id="vbri_header"><title>VBRI头（header）</title>
+            <para>据了解，目前此头信息，只有用Fraunhofer的编码器生成的MPEG音频文件，才会用到此头。</para>
+            <para>其和Xing头不一样，其放在第一个MPEG头的后面，大小正好是32字节。其位置，长度和示例，都是以字节为单位。</para>
+            <para>下表是VBRi头的具体格式及含义，单位为字节：</para>
+            <table id="mpeg.vbri_header_format" align="left">
+                <title>VBRI头的格式及含义</title>
+                <tgroup cols="4">
+                    <colspec colnum="1" colname="col1" colwidth="2*"/>
+                    <colspec colnum="2" colname="col2" colwidth="2*"/>
+                    <colspec colnum="3" colname="col3" colwidth="6*"/>
+                    <colspec colnum="4" colname="col4" colwidth="2*"/>
+                    <thead>
+                        <row><entry>位置（字节）</entry><entry>长度（字节）</entry><entry>含义</entry><entry>示例</entry></row>
+                    </thead>
+                    <tbody>
+                        <row><entry>0</entry><entry>4</entry><entry>4个ASCII字符的VBR头ID：“VBRI”无NULL结尾</entry><entry>“VBRI”</entry></row>
+                        <row><entry>4</entry><entry>2</entry><entry>版本ID，大端，类型：DWORD</entry><entry>1</entry></row>
+                        <row><entry>6</entry><entry>2</entry><entry>延迟，类型：float</entry><entry>7344</entry></row>
+                        <row><entry>8</entry><entry>2</entry><entry>音频质量指示</entry><entry>75</entry></row>
+                        <row><entry>10</entry><entry>4</entry><entry>文件总大小，大端，类型：DWORD</entry><entry>45000</entry></row>
+                        <row><entry>14</entry><entry>4</entry><entry><emphasis>总的帧数</emphasis>，大端，类型：DWORD</entry><entry>7344</entry></row>
+                        <row><entry>18</entry><entry>2</entry><entry>TOC表的表项数目，大端，类型：WORD</entry><entry>100</entry></row>
+                        <row><entry>20</entry><entry>2</entry><entry>TOC表项的缩放因子，大端，类型：DWORD</entry><entry>1</entry></row>
+                        <row><entry>22</entry><entry>2</entry><entry>单个TOC表项的大小，单位字节，最大为4，大端，类型：DWORD</entry><entry>2</entry></row>
+                        <row><entry>24</entry><entry>2</entry><entry>帧数/表项，大端，类型：WORD</entry><entry>845</entry></row>
+                        <row><entry>26</entry><entry> </entry><entry>用于检索的TOC表，整型值，可以通过每个表项大小乘于表项个数得到此TOC表的总大小，大端</entry><entry> </entry></row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </sect3>
+    </sect2>
+
+</sect1>
+
+</chapter>

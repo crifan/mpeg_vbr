@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE chapter
+[
+<!ENTITY % crl_ent PUBLIC "crl.ent" 'http://www.crifan.com/files/res/docbook/entity/crl.ent'>
+%crl_ent;
+]>
+
+<chapter 
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:id="ch05_calc_duration">
+<title>计算CBR和VBR的MP3文件的播放时间的步骤</title>
+<abstract>
+    <para>此处只是大概总结一下，具体解析出播放时间，需要哪些步骤，可以参考相关源码：</para>
+    <orderedlist>
+        <listitem><para>可以参考
+            <xref linkend="ref.mpeg_audio_frame_header" />
+            <!-- <citation>MPEG Audio Frame Header</citation> -->
+            ，注册登录后，可以下载源代码，自己看，就知道了。</para></listitem>
+        <listitem><para>也可以去参考
+            <xref linkend="ref.mplayer_patch" />
+            中的Mplayer的VBR 的patch，里面写的更加简单，也更容易看明白。</para></listitem>
+    </orderedlist>
+    <para>下面就解释一下，关于如何去计算MP3的文件的播放时间，的具体的逻辑和顺序：</para>
+</abstract>
+
+<sect1><title>定位到MPEG的帧头的位置</title>
+    <para>由于在计算MP3播放时间之前，要先找到对应的MPEG的帧头，所以，先要找到MPEG具体在某个位置。</para>
+    <para>具体方法是，如果文件开始没有ID3 V2的头信息，那么一般MPEG的帧头位置是0，当然，具体还是要根据帧头中的同步位（sync bit），共11位去定位找到帧头。</para>
+</sect1>
+
+<sect1><title>解析MPEG帧头，获取必要信息</title>
+    <para>主要是根据帧头格式，解析出MPEG的版本，MPEG的Layer，以及采样率，比特率等信息，用于后面的解码和计算播放时长。</para>
+</sect1>
+
+<sect1><title>判断是VBR还是CBR，根据公式计算播放时间</title>
+    <sect2><title>定位出Xing头的位置</title>
+        <para>根据
+            <!-- <link linkend="eq.xing_pos">计算XING头位置的公式</link> -->
+            <xref linkend="eq.xing_pos"/>
+            定位到XING头所在位置。上式中：
+        </para>
+        <orderedlist>
+            <listitem>MPEG头位置：<para>如果没有ID3 V2这类的信息的话，那么MPEG头位置就是文件的最开始，即0的位置。</para></listitem>
+            <listitem>MPEG帧头大小：<para>固定的32 bit = 4字节，所以加4.</para></listitem>
+            <listitem>边信息大小：<para>对应Layer III，根据MPEG的版本，查下表可得，单位为字节：</para></listitem>
+        </orderedlist>
+        <table id="mp3_side_info" align="center"><title>MPEG Layer III的边信息（side information）（单位：字节）</title>
+            <tgroup cols="3">
+                <colspec colnum="1" colname="col1" colwidth="4*"/>
+                <colspec colnum="2" colname="col2" colwidth="2*"/>
+                <colspec colnum="3" colname="col3" colwidth="2*"/>
+                <thead>
+                    <row><entry> </entry><entry>MPEG 1</entry><entry>MPEG 2/2.5 (LSF)</entry></row>
+                </thead>
+                <tbody>
+                    <row><entry>立体声，联合立体声，双声道</entry><entry>32<co id="co.side_info_32" linkends="co.note.side_info_32"/></entry><entry>17</entry></row>
+                    <row><entry>单声道</entry><entry>17</entry><entry>9</entry></row>
+                </tbody>
+            </tgroup>
+        </table>
+        <calloutlist>
+            <callout id="co.note.side_info_32" arearefs="co.side_info_32">我们最常见的，双声道的MP3，不论是VBR还是CBR，对应的边信息，都是32个字节。</callout>
+        </calloutlist>
+    </sect2>
+    
+    <sect2><title>如果有Xing头，则是VBR，解析XING头，计算播放时间</title>
+        <para>如果对应XING头的位置有对应的” Xing”字符，那就说明是Xing头。</para>
+        <para>那么就可以解析Xing头，找到对应的我们所需要的一些值，尤其是总的帧数。</para>
+        <para>然后用之前介绍的<xref linkend="eq.vbr_duration"/>去计算VBR的播放时间。</para>
+        <para>其中：</para>
+        <orderedlist>
+            <listitem><emphasis>总的帧数</emphasis>（Number of Frames）：<para>可以通过解析XING头，找出里面总帧数（Frames），这个字段，一般都是存在的。</para></listitem>
+            <listitem><emphasis>帧的采样个数（Samples Per Frame）：</emphasis>
+                <para>根据前面解析MPEG，找到MPEG的版本，基于属于哪个Layer，然后根据<xref linkend="mpeg.samplenum_index_table"/>查得每帧的采样个数，得到每一帧有多少个采样。</para>
+                <para>而对于MP3（MPEG-1，Layer III）此处肯定是对应的<emphasis>1152</emphasis>。</para>
+            </listitem>
+            <listitem>采样率（Sampling Rate）：
+                <para>根据前面解析MPEG，找到2比特大小的采样率索引 ，然后根据<xref linkend="mpeg.samplerate_index_table" />找到对应的采样率。</para>
+            </listitem>
+        </orderedlist>
+        <para>此处，也就是找到我们前面所说的，总的帧数，加上另外两个参数：帧的采样数和帧的采样率（都是通过解析第一帧的帧头，即可算出对应的值），然后我们就可以算出VBR的MP3文件的总的播放时间长度了。</para>
+    </sect2>
+    
+    <sect2><title>如果没XING头，定位出VBRI头位置，找VBRI头</title>
+        <para>计算出VBRI的位置，如果该位置找到“VBRI”字符，那么说明是VBRI头。</para>
+        <para>然后解析VBRI，找到对应的总的帧数，然后和XING头算法类似，用上面的公式计算出VBR的播放时间即可。</para>
+    </sect2>
+    
+    <sect2><title>如果也没找到VBRI头，则是CBR，计算CBR的播放时间</title>
+        <para>如果连VBRI头也没找到，即，Xing和VBRI都没有，那么则是CBR。</para>
+        <para>然后用<xref linkend="eq.cbr_duration" />计算出播放时间长度。</para>
+        <para>其中：</para>
+        <orderedlist>
+            <listitem><emphasis>文件大小（File Size）：</emphasis>
+                <para>文件大小 = 总文件大小 – 头信息大小</para>
+                <para>这里的头信息，指的是ID3 V1或ID3 V2之类的头信息。</para>
+                <para>而总文件大小，这个不用多解释，就是整个MP3的大小。</para>
+                <para>两者单位都是字节。</para>
+            </listitem>
+            <listitem><emphasis>比特率：</emphasis>
+                <para>通过解析第一帧的MPEG，即可得到比特率的索引值，然后查<xref linkend="mpeg.bitrate_index_table"/>，即可得到此MP3的比特率大小。</para>
+                <para>然后套用上面的公式，即可算出CBR的MP3的播放时间长度了。</para>
+            </listitem>
+        </orderedlist>
+    </sect2>
+    
+</sect1>
+
+</chapter>
